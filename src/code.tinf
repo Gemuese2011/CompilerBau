@@ -1,0 +1,10 @@
+VAR test is int = 9
+var test is int = 9
+var test3 is string = 9
+# kommentar #
+const test2: int = 9
+print(all_vars)
+test = 10
+test2 = 5
+print(all_vars)
+print(all_names)
