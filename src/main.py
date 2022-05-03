@@ -5,13 +5,14 @@ from parserfile import MyParser
 from lexerfile import MyLexer
 
 if __name__ == '__main__':
+    print("Initializing Bier Lexer")
     lexer = MyLexer()
-    parser = MyParser()
-    with open("code.tinf", "r") as file:
-        while True:
-            try:
-                text = file.readline()
-            except EOFError:
-                pass
+    print("Initializing Bier Parser")
+    parser = MyParser(lexer)
+    print("Interpreting .bier File")
+    print("========================Running Code========================")
+    print()
+    with open("main.bier", "r") as file:
+        for text in file:
             if text:
                 parser.parse(lexer.tokenize(text))

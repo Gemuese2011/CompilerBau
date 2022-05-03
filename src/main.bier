@@ -1,8 +1,8 @@
 VAR test is int = 9
 var test is int = 9
-var test3 is string = 9
-# kommentar #
+var test3 is String = 9
 const test2: int = 9
+# Kommentar
 print(all_vars)
 test = 10
 test2 = 5

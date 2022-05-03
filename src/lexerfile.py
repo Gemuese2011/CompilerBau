@@ -1,12 +1,19 @@
+'''
+Lex File
+'''
 from sly import Lexer
 
+
 class MyLexer(Lexer):
+    '''
+    Lexer for Bier Compiler
+    '''
 
     def __init__(self):
         self.lineno = 0
 
     tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, VARIABLE_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN, LPAREN,
-              RPAREN, COLON, CONSTANTS_PREFIX}
+              RPAREN, COLON, CONSTANTS_PREFIX, COMMENT}
     ignore = ' \t'
 
     # Tokens
@@ -16,6 +23,7 @@ class MyLexer(Lexer):
     LPAREN = r'\('
     RPAREN = r'\)'
     COLON = r':'
+    COMMENT = r'\#.*'
 
     # Special Names
     VARIABLE_NAME['var'] = VARIABLE_PREFIX
@@ -33,14 +41,25 @@ class MyLexer(Lexer):
     VARIABLE_NAME['all_vars'] = VARIABLES
     VARIABLE_NAME['all_names'] = NAMES
 
-    # Ignored pattern
-    ignore_newline = r'\n+'
-    ignore_comment = '\# .*'
-
     def error(self, t):
+        '''
+        Lexer Error Function
+        :param t: readed Token
+        '''
         print("Illegal character '%s'" + t.value[0] + "in line " + self.lineno)
         self.index += 1
 
     @_(r'\n+')
-    def ignore_newline(self, t):
-        self.lineno += len(t.value)
+    def newline(self, t):
+        '''
+        Function for newline
+        :param t: readed Token
+        '''
+        self.lineno += 1
+
+    def get_line_no(self):
+        '''
+        Getter for line number
+        :return: line_no
+        '''
+        return self.lineno
