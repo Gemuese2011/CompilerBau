@@ -2,8 +2,12 @@
 Yacc File
 '''
 from sly import Parser
+
+from Exceptions.NameGivenException import NameGivenException
+from Exceptions.NameNotFoundException import NameNotFoundException
+from Exceptions.NotWritableException import NotWritableException
 from classes import variable
-from utils import variables
+from utils import variables, set_variable
 from lexerfile import MyLexer
 
 
@@ -42,9 +46,8 @@ class MyParser(Parser):
         :param p: readed tokens with values
         '''
         if p.VARIABLE_NAME in variables:
-            self.error_message(p.lineno, "Constant/Variable \"" + p.VARIABLE_NAME + "\" already defined")
-            return
-        variables[p.VARIABLE_NAME] = variable.Variable(p.VAR_TYPE, p.VARIABLE_VALUE)
+            raise NameGivenException("Constant/Variable \"" + p.VARIABLE_NAME + "\" already defined")
+        set_variable(p.VARIABLE_NAME, p.VAR_TYPE, p.VARIABLE_VALUE)
 
     @_('CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE',
        'CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE')
@@ -55,10 +58,9 @@ class MyParser(Parser):
         :param p: readed tokens with values
         '''
         if p.VARIABLE_NAME in variables:
-            self.error_message(p.lineno, "Constant/Variable \"" + p.VARIABLE_NAME + "\" already defined")
-            return
+            raise NameGivenException("Constant/Variable \"" + p.VARIABLE_NAME + "\" already defined")
 
-        variables[p.VARIABLE_NAME] = variable.Variable(p.VAR_TYPE, p.VARIABLE_VALUE, False)
+        set_variable(p.VARIABLE_NAME, p.VAR_TYPE, p.VARIABLE_VALUE, False)
 
     @_('COMMENT')
     def expression(self, p):
@@ -99,13 +101,15 @@ class MyParser(Parser):
         EXPRESSION : VARIABLE_NAME ASSIGN VARIABLE_VALUE
         :param p: readed tokens with values
         '''
-        try:
-            if variables[p.VARIABLE_NAME].write:
-                variables[p.VARIABLE_NAME].value = p.VARIABLE_VALUE
-            else:
-                self.error_message(p.lineno, "Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
-        except:
-            self.error_message(p.lineno, "Name " + p.VARIABLE_NAME + " not defined")
+
+        if p.VARIABLE_NAME not in variables.keys():
+            raise NameNotFoundException("Name " + p.VARIABLE_NAME + " not defined")
+
+        if variables[p.VARIABLE_NAME].write:
+            variables[p.VARIABLE_NAME].value = p.VARIABLE_VALUE
+        else:
+            raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
+
 
     def error(self, p):
         print("Syntax error in line" + p.lineno)
@@ -113,5 +117,5 @@ class MyParser(Parser):
             print("End of File!")
             return
 
-    def error_message(self, lineno, message):
+    def error_message(self, line, message):
         print("Error in line " + str(self.lexer.get_line_no()) + ": " + message)

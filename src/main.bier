@@ -1,10 +1,9 @@
 VAR test is int = 9
-var test is int = 9
 var test3 is String = 9
-const test2: int = 9
+const test2: int = 005
 # Kommentar
 print(all_vars)
 test = 10
-test2 = 5
+test4 = 9
 print(all_vars)
 print(all_names)

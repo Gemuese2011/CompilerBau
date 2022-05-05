@@ -10,7 +10,7 @@ class MyLexer(Lexer):
     '''
 
     def __init__(self):
-        self.lineno = 0
+        pass
 
     tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, VARIABLE_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN, LPAREN,
               RPAREN, COLON, CONSTANTS_PREFIX, COMMENT}
@@ -50,12 +50,8 @@ class MyLexer(Lexer):
         self.index += 1
 
     @_(r'\n+')
-    def newline(self, t):
-        '''
-        Function for newline
-        :param t: readed Token
-        '''
-        self.lineno += 1
+    def ignore_newline(self, t):
+        self.lineno += t.value.count('\n')
 
     def get_line_no(self):
         '''
