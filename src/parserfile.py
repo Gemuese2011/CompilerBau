@@ -7,7 +7,7 @@ from Exceptions.NameGivenException import NameGivenException
 from Exceptions.NameNotFoundException import NameNotFoundException
 from Exceptions.NotWritableException import NotWritableException
 from classes import variable
-from utils import variables, set_variable
+from utils import variables, set_variable, cast_value, set_array
 from lexerfile import MyLexer
 
 
@@ -76,7 +76,14 @@ class MyParser(Parser):
         expression : PRINT LPAREN statement RPAREN
         :param p: readed Data
         '''
-        pass
+        try:
+            for element in p.statement:
+                if type(element) == tuple:
+                    element[1].print_variable(element[0])
+                else:
+                    print(element)
+        except:
+            print(p.statement)
 
     @_('NAMES')
     def statement(self, p):
@@ -84,7 +91,7 @@ class MyParser(Parser):
         statement : NAMES
         :param p: readed Data
         '''
-        print(variables.keys())
+        return variables.keys()
 
     @_('VARIABLES')
     def statement(self, p):
@@ -92,8 +99,23 @@ class MyParser(Parser):
         statement : VARIABLES
         :param p: readed Data
         '''
-        for var in variables:
-            variables.get(var).print_variable(var)
+        return variables.items()
+
+    @_('VARIABLE_NAME')
+    def statement(self, p):
+        '''
+        statement : VARIABLES
+        :param p: readed Data
+        '''
+        return variables.get(p.VARIABLE_NAME).value
+
+    @_('VARIABLE_NAME L_SQUARE_BRACKETS VARIABLE_VALUE R_SQUARE_BRACKETS')
+    def statement(self, p):
+        '''
+        statement : VARIABLES
+        :param p: readed Data
+        '''
+        return variables.get(p.VARIABLE_NAME).values[int(p.VARIABLE_VALUE)]
 
     @_('VARIABLE_NAME ASSIGN VARIABLE_VALUE')
     def expression(self, p):
@@ -111,8 +133,34 @@ class MyParser(Parser):
             raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
 
 
+    @_('CAST VARIABLE_NAME TO VAR_TYPE')
+    def expression(self, p):
+        '''
+        EXPRESSION : CAST VARIABLE_NAME TO VAR_TYPE
+        :param p: readed tokens with values
+        '''
+        if p.VARIABLE_NAME not in variables.keys():
+            raise NameNotFoundException("Name " + p.VARIABLE_NAME + " not defined")
+
+        cast_value(p.VARIABLE_NAME, p.VAR_TYPE)
+
+    @_('VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS')
+    def expression(self, p):
+        set_array(p.VARIABLE_NAME, p.VAR_TYPE, p.value_list)
+
+    @_('VARIABLE_VALUE COMMA value_list',
+       'VARIABLE_VALUE')
+    def value_list(self, p):
+        if len(p) > 1:
+            p.value_list.insert(0, p.VARIABLE_VALUE)
+            return p.value_list
+        else:
+            return [p.VARIABLE_VALUE]
+
+
+
     def error(self, p):
-        print("Syntax error in line" + p.lineno)
+        print("Syntax error in line")
         if not p:
             print("End of File!")
             return

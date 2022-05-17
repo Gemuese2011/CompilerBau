@@ -1,9 +1,17 @@
 VAR test is int = 9
+print(all_vars)
 var test3 is String = 9
 const test2: int = 005
 # Kommentar
 print(all_vars)
 test = 10
-test4 = 9
 print(all_vars)
 print(all_names)
+cast test3 to int
+cast test2 to String
+print(all_vars)
+test_array is array of int with [8, 9, 10]
+print(all_names)
+print(all_vars)
+print(test_array[0])
+print(test3)
