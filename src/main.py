@@ -4,6 +4,10 @@ Compiler Main
 from parserfile import MyParser
 from lexerfile import MyLexer
 
+
+def __init__(self):
+    self.names = {}
+
 if __name__ == '__main__':
     print("Initializing Bier Lexer")
     lexer = MyLexer()
@@ -16,3 +20,13 @@ if __name__ == '__main__':
         for text in file:
             if text:
                 parser.parse(lexer.tokenize(text))
+
+    lexer = MyLexer()
+
+    while True:
+        try:
+            text = input('My > ')
+        except EOFError:
+            break
+        if text:
+            parser.parse(lexer.tokenize(text))

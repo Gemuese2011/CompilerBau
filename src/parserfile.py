@@ -17,8 +17,16 @@ class MyParser(Parser):
     '''
     tokens = MyLexer.tokens
 
+    precedence = (
+        ('left', '+', '-'),
+        ('left', '*', '/'),
+        ('right', 'UMINUS'),
+    )
+
     def __init__(self, lexer):
         self.lexer = lexer
+
+
 
     @_('declaration_list')
     def expression(self, p):
@@ -117,6 +125,14 @@ class MyParser(Parser):
         '''
         return variables.get(p.VARIABLE_NAME).values[int(p.VARIABLE_VALUE)]
 
+    @_('VARIABLE_NAME "=" expr')
+    def statement(self, p):
+        self.names[p.VARIABLE_NAME] = p.expr
+
+    @_('expr')
+    def statement(self, p):
+        print(p.expr)
+
     @_('VARIABLE_NAME ASSIGN VARIABLE_VALUE')
     def expression(self, p):
         '''
@@ -148,6 +164,42 @@ class MyParser(Parser):
     def expression(self, p):
         set_array(p.VARIABLE_NAME, p.VAR_TYPE, p.value_list)
 
+    @_('expr "+" expr')
+    def expression(self, p):
+            return p.expr0 + p.expr1
+
+    @_('expr "-" expr')
+    def expr(self, p):
+        return p.expr0 - p.expr1
+
+    @_('expr "*" expr')
+    def expr(self, p):
+        return p.expr0 * p.expr1
+
+    @_('expr "/" expr')
+    def expr(self, p):
+        return p.expr0 / p.expr1
+
+    @_('"-" expr %prec UMINUS')
+    def expr(self, p):
+        return -p.expr
+
+    @_('"(" expr ")"')
+    def expr(self, p):
+        return p.expr
+
+    @_('NUMBER')
+    def expr(self, p):
+        return p.NUMBER
+
+    @_('VARIABLE_NAME')
+    def expr(self, p):
+        try:
+            return self.names[p.VARIABLE_NAME]
+        except LookupError:
+            print("Undefined name '%s'" % p.VARIABLE_NAME)
+            return 0
+
     @_('VARIABLE_VALUE COMMA value_list',
        'VARIABLE_VALUE')
     def value_list(self, p):
@@ -158,7 +210,6 @@ class MyParser(Parser):
             return [p.VARIABLE_VALUE]
 
 
-
     def error(self, p):
         print("Syntax error in line")
         if not p:
@@ -167,3 +218,8 @@ class MyParser(Parser):
 
     def error_message(self, line, message):
         print("Error in line " + str(self.lexer.get_line_no()) + ": " + message)
+
+'''----------------------------------------------------------------------------------'''
+
+
+
