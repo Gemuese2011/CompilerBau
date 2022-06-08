@@ -86,6 +86,8 @@ class MyParser(Parser):
         :param p: readed Data
         '''
         try:
+            if type(p.statement) == str:
+                raise TypeError
             for element in p.statement:
                 if type(element) == tuple:
                     element[1].print_variable(element[0])
@@ -190,13 +192,6 @@ class MyParser(Parser):
     def expr(self, p):
         return p.VARIABLE_VALUE
 
-    @_('VARIABLE_NAME')
-    def expr(self, p):
-        try:
-            return self.names[p.VARIABLE_NAME]
-        except LookupError:
-            print("Undefined name '%s'" % p.VARIABLE_NAME)
-            return 0
 
     @_('VARIABLE_VALUE COMMA value_list',
        'VARIABLE_VALUE')
