@@ -16,9 +16,18 @@ class MyParser(Parser):
     Parser of the Compiler
     '''
     tokens = MyLexer.tokens
+    debugfile = 'parser.out'
+
+    precedence = (
+        ('left', '+', '-'),
+        ('left', '*', '/'),
+        ('right', 'UMINUS'),
+    )
 
     def __init__(self, lexer):
         self.lexer = lexer
+
+
 
     @_('declaration_list')
     def expression(self, p):
@@ -117,7 +126,12 @@ class MyParser(Parser):
         '''
         return variables.get(p.VARIABLE_NAME).values[int(p.VARIABLE_VALUE)]
 
-    @_('VARIABLE_NAME ASSIGN VARIABLE_VALUE')
+
+    @_('expr')
+    def statement(self, p):
+        return p.expr
+
+    @_('VARIABLE_NAME ASSIGN expr')
     def expression(self, p):
         '''
         EXPRESSION : VARIABLE_NAME ASSIGN VARIABLE_VALUE
@@ -128,7 +142,7 @@ class MyParser(Parser):
             raise NameNotFoundException("Name " + p.VARIABLE_NAME + " not defined")
 
         if variables[p.VARIABLE_NAME].write:
-            variables[p.VARIABLE_NAME].value = p.VARIABLE_VALUE
+            variables[p.VARIABLE_NAME].value = p.expr
         else:
             raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
 
@@ -148,6 +162,42 @@ class MyParser(Parser):
     def expression(self, p):
         set_array(p.VARIABLE_NAME, p.VAR_TYPE, p.value_list)
 
+    @_('expr "+" expr')
+    def expr(self, p):
+        return float(p.expr0) + float(p.expr1)
+
+    @_('expr "-" expr')
+    def expr(self, p):
+        return float(p.expr0) - float(p.expr1)
+
+    @_('expr "*" expr')
+    def expr(self, p):
+        return float(p.expr0) * float(p.expr1)
+
+    @_('expr "/" expr')
+    def expr(self, p):
+        return float(p.expr0) / float(p.expr1)
+
+    @_('"-" expr %prec UMINUS')
+    def expr(self, p):
+        return float(-p.expr)
+
+    @_('LPAREN expr RPAREN')
+    def expr(self, p):
+        return p.expr
+
+    @_('VARIABLE_VALUE')
+    def expr(self, p):
+        return p.VARIABLE_VALUE
+
+    @_('VARIABLE_NAME')
+    def expr(self, p):
+        try:
+            return self.names[p.VARIABLE_NAME]
+        except LookupError:
+            print("Undefined name '%s'" % p.VARIABLE_NAME)
+            return 0
+
     @_('VARIABLE_VALUE COMMA value_list',
        'VARIABLE_VALUE')
     def value_list(self, p):
@@ -156,7 +206,6 @@ class MyParser(Parser):
             return p.value_list
         else:
             return [p.VARIABLE_VALUE]
-
 
 
     def error(self, p):
