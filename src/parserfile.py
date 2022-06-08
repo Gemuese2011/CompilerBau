@@ -150,55 +150,46 @@ class MyParser(Parser):
 
     @_('VARIABLE_NAME EQ VARIABLE_NAME')
     def bool_op(self, p):
-        if p.VARIABLE_VALUE0 == p.VARIABLE_VALUE1:
-            return True
-        else:
-            return False
+        return p.expr0 == p.expr1
 
     @_('VARIABLE_NAME GT VARIABLE_NAME')
     def bool_op(self, p):
-        if p.VARIABLE_VALUE0 > p.VARIABLE_VALUE1:
-            return True
-        else:
-            return False
+        return p.expr0 > p.expr1
 
     @_('VARIABLE_NAME LT VARIABLE_NAME')
     def bool_op(self, p):
-        if p.VARIABLE_VALUE0 < p.VARIABLE_VALUE1:
-            return True
-        else:
-            return False
+        return p.expr0 < p.expr1
 
     @_('VARIABLE_NAME GE VARIABLE_NAME')
     def bool_op(self, p):
-        if p.VARIABLE_VALUE0 >= p.VARIABLE_VALUE1:
-            return True
-        else:
-            return False
+        return p.expr0 >= p.expr1
 
     @_('VARIABLE_NAME LE VARIABLE_NAME')
     def bool_op(self, p):
-        if p.VARIABLE_VALUE0 <= p.VARIABLE_VALUE1:
-            return True
-        else:
-            return False
+        return p.expr0 <= p.expr1
 
     @_('bool_op')
     def statement(self, p):
-        pass
+        return p.bool_op
 
     @_('IF bool_op THEN statement')
     def statement(self, p):
-        pass
+        if p.bool_OP:
+            return p.statement
 
     @_('IF bool_op THEN statement ELSE statement')
     def statement(self, p):
-        pass
+        if p.bool_op:
+            return p.statement1
+        else:
+            return p.statement2
 
     @_('WHILE bool_op DO statement')
     def statement(self, p):
-        while p.BOOL_OP:
-            pass  # statement ausführen
+        while p.bool_op:
+            p.statement
+        return p.statement
+
 
     @_('CAST VARIABLE_NAME TO VAR_TYPE')
     def expression(self, p):
