@@ -111,8 +111,64 @@ class MyParser(Parser):
             raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
 
 
+    @_('VARIABLE_NAME EQ VARIABLE_NAME')
+    def BOOL_OP(self, p):
+        if p.VARIABLE_VALUE0 == p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME GT VARIABLE_NAME')
+    def BOOL_OP(self, p):
+        if p.VARIABLE_VALUE0 > p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME LT VARIABLE_NAME')
+    def BOOL_OP(self, p):
+        if p.VARIABLE_VALUE0 < p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME GE VARIABLE_NAME')
+    def BOOL_OP(self, p):
+        if p.VARIABLE_VALUE0 >= p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME LE VARIABLE_NAME')
+    def BOOL_OP(self, p):
+        if p.VARIABLE_VALUE0 <= p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('BOOL_OP')
+    def STATEMENT(self, p):
+        pass
+
+    @_('STATEMENT')
+    def expression(self, p):
+        pass
+
+    @_('IF BOOL_OP THEN STATEMENT')
+    def STATEMENT(self, p):
+        pass
+
+    @_('IF BOOL_OP THEN STATEMENT ELSE STATEMENT')
+    def STATEMENT(self, p):
+        pass
+
+    @_('WHILE BOOL_OP DO STATEMENT')
+    def STATEMENT(self, p):
+        while p.BOOL_OP == True:
+            exec(p.statement)
+
     def error(self, p):
-        print("Syntax error in line" + p.lineno)
+        print("Syntax error in line" + str(p.lineno))
         if not p:
             print("End of File!")
             return

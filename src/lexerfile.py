@@ -13,7 +13,7 @@ class MyLexer(Lexer):
         pass
 
     tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, VARIABLE_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN, LPAREN,
-              RPAREN, COLON, CONSTANTS_PREFIX, COMMENT}
+              RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, IF, THEN, ELSE, WHILE, EQ, GT, LT, GE, LE, DO}
     ignore = ' \t'
 
     # Tokens
@@ -40,6 +40,17 @@ class MyLexer(Lexer):
     VARIABLE_NAME['print'] = PRINT
     VARIABLE_NAME['all_vars'] = VARIABLES
     VARIABLE_NAME['all_names'] = NAMES
+    VARIABLE_NAME['if'] = IF
+    VARIABLE_NAME['then'] = THEN
+    VARIABLE_NAME['else'] = ELSE
+    VARIABLE_NAME['while'] = WHILE
+    VARIABLE_NAME['equals'] = EQ
+    VARIABLE_NAME['greater than'] = GT
+    VARIABLE_NAME['less than'] = LT
+    VARIABLE_NAME['greater equal'] = GE
+    VARIABLE_NAME['less equal'] = LE
+    VARIABLE_NAME['do'] = DO
+
 
     def error(self, t):
         '''
