@@ -2,9 +2,11 @@ VAR test is int = 9
 print(all_vars)
 var test3 is String = 9
 const test2: int = 005
+test equals test 2
 # Kommentar
 print(all_vars)
 test = 10
+
 print(all_vars)
 print(all_names)
 cast test3 to int

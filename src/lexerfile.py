@@ -13,9 +13,11 @@ class MyLexer(Lexer):
         pass
 
     tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, VARIABLE_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN, LPAREN,
+
               RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, CAST, TO, ARRAY, OF, R_SQUARE_BRACKETS, L_SQUARE_BRACKETS,
-              COMMA, WITH}
+              COMMA, WITH, IF, THEN, ELSE, WHILE, EQ, GT, LT, GE, LE, DO}
     literals = {'=', '+', '-', '*', '/', '(', ')'}
+
     ignore = ' \t'
 
     # Tokens
@@ -45,6 +47,7 @@ class MyLexer(Lexer):
     VARIABLE_NAME['print'] = PRINT
     VARIABLE_NAME['all_vars'] = VARIABLES
     VARIABLE_NAME['all_names'] = NAMES
+
     VARIABLE_NAME['cast'] = CAST
     VARIABLE_NAME['CAST'] = CAST
     VARIABLE_NAME['TO'] = TO
@@ -55,6 +58,18 @@ class MyLexer(Lexer):
     VARIABLE_NAME['of'] = OF
     VARIABLE_NAME['with'] = WITH
     VARIABLE_NAME['WITH'] = WITH
+
+    VARIABLE_NAME['if'] = IF
+    VARIABLE_NAME['then'] = THEN
+    VARIABLE_NAME['else'] = ELSE
+    VARIABLE_NAME['while'] = WHILE
+    VARIABLE_NAME['equals'] = EQ
+    VARIABLE_NAME['greater than'] = GT
+    VARIABLE_NAME['less than'] = LT
+    VARIABLE_NAME['greater equal'] = GE
+    VARIABLE_NAME['less equal'] = LE
+    VARIABLE_NAME['do'] = DO
+
 
     def error(self, t):
         '''

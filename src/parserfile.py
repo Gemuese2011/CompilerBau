@@ -148,6 +148,57 @@ class MyParser(Parser):
         else:
             raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
 
+    @_('VARIABLE_NAME EQ VARIABLE_NAME')
+    def bool_op(self, p):
+        if p.VARIABLE_VALUE0 == p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME GT VARIABLE_NAME')
+    def bool_op(self, p):
+        if p.VARIABLE_VALUE0 > p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME LT VARIABLE_NAME')
+    def bool_op(self, p):
+        if p.VARIABLE_VALUE0 < p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME GE VARIABLE_NAME')
+    def bool_op(self, p):
+        if p.VARIABLE_VALUE0 >= p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('VARIABLE_NAME LE VARIABLE_NAME')
+    def bool_op(self, p):
+        if p.VARIABLE_VALUE0 <= p.VARIABLE_VALUE1:
+            return True
+        else:
+            return False
+
+    @_('bool_op')
+    def statement(self, p):
+        pass
+
+    @_('IF bool_op THEN statement')
+    def statement(self, p):
+        pass
+
+    @_('IF bool_op THEN statement ELSE statement')
+    def statement(self, p):
+        pass
+
+    @_('WHILE bool_op DO statement')
+    def statement(self, p):
+        while p.BOOL_OP:
+            pass  # statement ausführen
 
     @_('CAST VARIABLE_NAME TO VAR_TYPE')
     def expression(self, p):
@@ -204,7 +255,7 @@ class MyParser(Parser):
 
 
     def error(self, p):
-        print("Syntax error in line")
+        print("Syntax error in line" + str(p.lineno))
         if not p:
             print("End of File!")
             return
