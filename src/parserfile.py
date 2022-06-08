@@ -16,6 +16,7 @@ class MyParser(Parser):
     Parser of the Compiler
     '''
     tokens = MyLexer.tokens
+    debugfile = 'parser.out'
 
     precedence = (
         ('left', '+', '-'),
@@ -125,15 +126,12 @@ class MyParser(Parser):
         '''
         return variables.get(p.VARIABLE_NAME).values[int(p.VARIABLE_VALUE)]
 
-    @_('VARIABLE_NAME "=" expr')
-    def statement(self, p):
-        self.names[p.VARIABLE_NAME] = p.expr
 
     @_('expr')
     def statement(self, p):
-        print(p.expr)
+        return p.expr
 
-    @_('VARIABLE_NAME ASSIGN VARIABLE_VALUE')
+    @_('VARIABLE_NAME ASSIGN expr')
     def expression(self, p):
         '''
         EXPRESSION : VARIABLE_NAME ASSIGN VARIABLE_VALUE
@@ -144,7 +142,7 @@ class MyParser(Parser):
             raise NameNotFoundException("Name " + p.VARIABLE_NAME + " not defined")
 
         if variables[p.VARIABLE_NAME].write:
-            variables[p.VARIABLE_NAME].value = p.VARIABLE_VALUE
+            variables[p.VARIABLE_NAME].value = p.expr
         else:
             raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
 
@@ -165,32 +163,32 @@ class MyParser(Parser):
         set_array(p.VARIABLE_NAME, p.VAR_TYPE, p.value_list)
 
     @_('expr "+" expr')
-    def expression(self, p):
-            return p.expr0 + p.expr1
+    def expr(self, p):
+        return float(p.expr0) + float(p.expr1)
 
     @_('expr "-" expr')
     def expr(self, p):
-        return p.expr0 - p.expr1
+        return float(p.expr0) - float(p.expr1)
 
     @_('expr "*" expr')
     def expr(self, p):
-        return p.expr0 * p.expr1
+        return float(p.expr0) * float(p.expr1)
 
     @_('expr "/" expr')
     def expr(self, p):
-        return p.expr0 / p.expr1
+        return float(p.expr0) / float(p.expr1)
 
     @_('"-" expr %prec UMINUS')
     def expr(self, p):
-        return -p.expr
+        return float(-p.expr)
 
-    @_('"(" expr ")"')
+    @_('LPAREN expr RPAREN')
     def expr(self, p):
         return p.expr
 
-    @_('NUMBER')
+    @_('VARIABLE_VALUE')
     def expr(self, p):
-        return p.NUMBER
+        return p.VARIABLE_VALUE
 
     @_('VARIABLE_NAME')
     def expr(self, p):
@@ -218,8 +216,3 @@ class MyParser(Parser):
 
     def error_message(self, line, message):
         print("Error in line " + str(self.lexer.get_line_no()) + ": " + message)
-
-'''----------------------------------------------------------------------------------'''
-
-
-

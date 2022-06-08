@@ -14,7 +14,7 @@ class MyLexer(Lexer):
 
     tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, VARIABLE_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN, LPAREN,
               RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, CAST, TO, ARRAY, OF, R_SQUARE_BRACKETS, L_SQUARE_BRACKETS,
-              COMMA, WITH, NUMBER}
+              COMMA, WITH}
     literals = {'=', '+', '-', '*', '/', '(', ')'}
     ignore = ' \t'
 
