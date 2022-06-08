@@ -1,0 +1,706 @@
+Grammar:
+
+Rule 0     S' -> expression
+Rule 1     expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+Rule 2     expression -> CAST VARIABLE_NAME TO VAR_TYPE
+Rule 3     expression -> VARIABLE_NAME ASSIGN expr
+Rule 4     expression -> PRINT LPAREN statement RPAREN
+Rule 5     expression -> COMMENT
+Rule 6     expression -> declaration_list
+Rule 7     declaration_list -> declaration declaration_list
+Rule 8     declaration_list -> declaration
+Rule 9     declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+Rule 10    declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+Rule 11    declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+Rule 12    declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+Rule 13    statement -> expr
+Rule 14    statement -> VARIABLE_NAME L_SQUARE_BRACKETS VARIABLE_VALUE R_SQUARE_BRACKETS
+Rule 15    statement -> VARIABLE_NAME
+Rule 16    statement -> VARIABLES
+Rule 17    statement -> NAMES
+Rule 18    expr -> VARIABLE_VALUE
+Rule 19    expr -> LPAREN expr RPAREN
+Rule 20    expr -> - expr  [precedence=right, level=3]
+Rule 21    expr -> expr / expr  [precedence=left, level=2]
+Rule 22    expr -> expr * expr  [precedence=left, level=2]
+Rule 23    expr -> expr - expr  [precedence=left, level=1]
+Rule 24    expr -> expr + expr  [precedence=left, level=1]
+Rule 25    value_list -> VARIABLE_VALUE
+Rule 26    value_list -> VARIABLE_VALUE COMMA value_list
+
+Terminals, with rules where they appear:
+
+*                    : 22
++                    : 24
+-                    : 20 23
+/                    : 21
+ARRAY                : 1
+ASSIGN               : 3 9 10 11 12
+CAST                 : 2
+COLON                : 9 11
+COMMA                : 26
+COMMENT              : 5
+CONSTANTS_PREFIX     : 9 10
+IS                   : 1 10 12
+LPAREN               : 4 19
+L_SQUARE_BRACKETS    : 1 14
+NAMES                : 17
+OF                   : 1
+PRINT                : 4
+RPAREN               : 4 19
+R_SQUARE_BRACKETS    : 1 14
+TO                   : 2
+VARIABLES            : 16
+VARIABLE_NAME        : 1 2 3 9 10 11 12 14 15
+VARIABLE_PREFIX      : 11 12
+VARIABLE_VALUE       : 9 10 11 12 14 18 25 26
+VAR_TYPE             : 1 2 9 10 11 12
+WITH                 : 1
+error                : 
+
+Nonterminals, with rules where they appear:
+
+declaration          : 7 8
+declaration_list     : 6 7
+expr                 : 3 13 19 20 21 21 22 22 23 23 24 24
+expression           : 0
+statement            : 4
+value_list           : 1 26
+
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    (2) expression -> . CAST VARIABLE_NAME TO VAR_TYPE
+    (3) expression -> . VARIABLE_NAME ASSIGN expr
+    (4) expression -> . PRINT LPAREN statement RPAREN
+    (5) expression -> . COMMENT
+    (6) expression -> . declaration_list
+    (7) declaration_list -> . declaration declaration_list
+    (8) declaration_list -> . declaration
+    (9) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (10) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    (11) declaration -> . VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (12) declaration -> . VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    VARIABLE_NAME   shift and go to state 2
+    CAST            shift and go to state 3
+    PRINT           shift and go to state 4
+    COMMENT         shift and go to state 5
+    CONSTANTS_PREFIX shift and go to state 8
+    VARIABLE_PREFIX shift and go to state 9
+
+    expression                     shift and go to state 1
+    declaration_list               shift and go to state 6
+    declaration                    shift and go to state 7
+
+state 1
+
+    (0) S' -> expression .
+
+
+state 2
+
+    (1) expression -> VARIABLE_NAME . IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    (3) expression -> VARIABLE_NAME . ASSIGN expr
+    IS              shift and go to state 10
+    ASSIGN          shift and go to state 11
+
+
+state 3
+
+    (2) expression -> CAST . VARIABLE_NAME TO VAR_TYPE
+    VARIABLE_NAME   shift and go to state 12
+
+
+state 4
+
+    (4) expression -> PRINT . LPAREN statement RPAREN
+    LPAREN          shift and go to state 13
+
+
+state 5
+
+    (5) expression -> COMMENT .
+    $end            reduce using rule 5 (expression -> COMMENT .)
+
+
+state 6
+
+    (6) expression -> declaration_list .
+    $end            reduce using rule 6 (expression -> declaration_list .)
+
+
+state 7
+
+    (7) declaration_list -> declaration . declaration_list
+    (8) declaration_list -> declaration .
+    (7) declaration_list -> . declaration declaration_list
+    (8) declaration_list -> . declaration
+    (9) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (10) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    (11) declaration -> . VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (12) declaration -> . VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    $end            reduce using rule 8 (declaration_list -> declaration .)
+    CONSTANTS_PREFIX shift and go to state 8
+    VARIABLE_PREFIX shift and go to state 9
+
+    declaration                    shift and go to state 7
+    declaration_list               shift and go to state 14
+
+state 8
+
+    (9) declaration -> CONSTANTS_PREFIX . VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (10) declaration -> CONSTANTS_PREFIX . VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    VARIABLE_NAME   shift and go to state 15
+
+
+state 9
+
+    (11) declaration -> VARIABLE_PREFIX . VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (12) declaration -> VARIABLE_PREFIX . VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    VARIABLE_NAME   shift and go to state 16
+
+
+state 10
+
+    (1) expression -> VARIABLE_NAME IS . ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    ARRAY           shift and go to state 17
+
+
+state 11
+
+    (3) expression -> VARIABLE_NAME ASSIGN . expr
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    expr                           shift and go to state 18
+
+state 12
+
+    (2) expression -> CAST VARIABLE_NAME . TO VAR_TYPE
+    TO              shift and go to state 22
+
+
+state 13
+
+    (4) expression -> PRINT LPAREN . statement RPAREN
+    (13) statement -> . expr
+    (14) statement -> . VARIABLE_NAME L_SQUARE_BRACKETS VARIABLE_VALUE R_SQUARE_BRACKETS
+    (15) statement -> . VARIABLE_NAME
+    (16) statement -> . VARIABLES
+    (17) statement -> . NAMES
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_NAME   shift and go to state 25
+    VARIABLES       shift and go to state 26
+    NAMES           shift and go to state 27
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    statement                      shift and go to state 23
+    expr                           shift and go to state 24
+
+state 14
+
+    (7) declaration_list -> declaration declaration_list .
+    $end            reduce using rule 7 (declaration_list -> declaration declaration_list .)
+
+
+state 15
+
+    (9) declaration -> CONSTANTS_PREFIX VARIABLE_NAME . COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (10) declaration -> CONSTANTS_PREFIX VARIABLE_NAME . IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    COLON           shift and go to state 28
+    IS              shift and go to state 29
+
+
+state 16
+
+    (11) declaration -> VARIABLE_PREFIX VARIABLE_NAME . COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+    (12) declaration -> VARIABLE_PREFIX VARIABLE_NAME . IS VAR_TYPE ASSIGN VARIABLE_VALUE
+    COLON           shift and go to state 30
+    IS              shift and go to state 31
+
+
+state 17
+
+    (1) expression -> VARIABLE_NAME IS ARRAY . OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    OF              shift and go to state 32
+
+
+state 18
+
+    (3) expression -> VARIABLE_NAME ASSIGN expr .
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    $end            reduce using rule 3 (expression -> VARIABLE_NAME ASSIGN expr .)
+    /               shift and go to state 33
+    *               shift and go to state 34
+    -               shift and go to state 35
+    +               shift and go to state 36
+
+
+state 19
+
+    (18) expr -> VARIABLE_VALUE .
+    /               reduce using rule 18 (expr -> VARIABLE_VALUE .)
+    *               reduce using rule 18 (expr -> VARIABLE_VALUE .)
+    -               reduce using rule 18 (expr -> VARIABLE_VALUE .)
+    +               reduce using rule 18 (expr -> VARIABLE_VALUE .)
+    $end            reduce using rule 18 (expr -> VARIABLE_VALUE .)
+    RPAREN          reduce using rule 18 (expr -> VARIABLE_VALUE .)
+
+
+state 20
+
+    (19) expr -> LPAREN . expr RPAREN
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    expr                           shift and go to state 37
+
+state 21
+
+    (20) expr -> - . expr
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    expr                           shift and go to state 38
+
+state 22
+
+    (2) expression -> CAST VARIABLE_NAME TO . VAR_TYPE
+    VAR_TYPE        shift and go to state 39
+
+
+state 23
+
+    (4) expression -> PRINT LPAREN statement . RPAREN
+    RPAREN          shift and go to state 40
+
+
+state 24
+
+    (13) statement -> expr .
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    RPAREN          reduce using rule 13 (statement -> expr .)
+    /               shift and go to state 33
+    *               shift and go to state 34
+    -               shift and go to state 35
+    +               shift and go to state 36
+
+
+state 25
+
+    (14) statement -> VARIABLE_NAME . L_SQUARE_BRACKETS VARIABLE_VALUE R_SQUARE_BRACKETS
+    (15) statement -> VARIABLE_NAME .
+    L_SQUARE_BRACKETS shift and go to state 41
+    RPAREN          reduce using rule 15 (statement -> VARIABLE_NAME .)
+
+
+state 26
+
+    (16) statement -> VARIABLES .
+    RPAREN          reduce using rule 16 (statement -> VARIABLES .)
+
+
+state 27
+
+    (17) statement -> NAMES .
+    RPAREN          reduce using rule 17 (statement -> NAMES .)
+
+
+state 28
+
+    (9) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON . VAR_TYPE ASSIGN VARIABLE_VALUE
+    VAR_TYPE        shift and go to state 42
+
+
+state 29
+
+    (10) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS . VAR_TYPE ASSIGN VARIABLE_VALUE
+    VAR_TYPE        shift and go to state 43
+
+
+state 30
+
+    (11) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON . VAR_TYPE ASSIGN VARIABLE_VALUE
+    VAR_TYPE        shift and go to state 44
+
+
+state 31
+
+    (12) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS . VAR_TYPE ASSIGN VARIABLE_VALUE
+    VAR_TYPE        shift and go to state 45
+
+
+state 32
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF . VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    VAR_TYPE        shift and go to state 46
+
+
+state 33
+
+    (21) expr -> expr / . expr
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    expr                           shift and go to state 47
+
+state 34
+
+    (22) expr -> expr * . expr
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    expr                           shift and go to state 48
+
+state 35
+
+    (23) expr -> expr - . expr
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    expr                           shift and go to state 49
+
+state 36
+
+    (24) expr -> expr + . expr
+    (18) expr -> . VARIABLE_VALUE
+    (19) expr -> . LPAREN expr RPAREN
+    (20) expr -> . - expr
+    (21) expr -> . expr / expr
+    (22) expr -> . expr * expr
+    (23) expr -> . expr - expr
+    (24) expr -> . expr + expr
+    VARIABLE_VALUE  shift and go to state 19
+    LPAREN          shift and go to state 20
+    -               shift and go to state 21
+
+    expr                           shift and go to state 50
+
+state 37
+
+    (19) expr -> LPAREN expr . RPAREN
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    RPAREN          shift and go to state 51
+    /               shift and go to state 33
+    *               shift and go to state 34
+    -               shift and go to state 35
+    +               shift and go to state 36
+
+
+state 38
+
+    (20) expr -> - expr .
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    /               reduce using rule 20 (expr -> - expr .)
+    *               reduce using rule 20 (expr -> - expr .)
+    -               reduce using rule 20 (expr -> - expr .)
+    +               reduce using rule 20 (expr -> - expr .)
+    $end            reduce using rule 20 (expr -> - expr .)
+    RPAREN          reduce using rule 20 (expr -> - expr .)
+
+
+state 39
+
+    (2) expression -> CAST VARIABLE_NAME TO VAR_TYPE .
+    $end            reduce using rule 2 (expression -> CAST VARIABLE_NAME TO VAR_TYPE .)
+
+
+state 40
+
+    (4) expression -> PRINT LPAREN statement RPAREN .
+    $end            reduce using rule 4 (expression -> PRINT LPAREN statement RPAREN .)
+
+
+state 41
+
+    (14) statement -> VARIABLE_NAME L_SQUARE_BRACKETS . VARIABLE_VALUE R_SQUARE_BRACKETS
+    VARIABLE_VALUE  shift and go to state 52
+
+
+state 42
+
+    (9) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE . ASSIGN VARIABLE_VALUE
+    ASSIGN          shift and go to state 53
+
+
+state 43
+
+    (10) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE . ASSIGN VARIABLE_VALUE
+    ASSIGN          shift and go to state 54
+
+
+state 44
+
+    (11) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE . ASSIGN VARIABLE_VALUE
+    ASSIGN          shift and go to state 55
+
+
+state 45
+
+    (12) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE . ASSIGN VARIABLE_VALUE
+    ASSIGN          shift and go to state 56
+
+
+state 46
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE . WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    WITH            shift and go to state 57
+
+
+state 47
+
+    (21) expr -> expr / expr .
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    /               reduce using rule 21 (expr -> expr / expr .)
+    *               reduce using rule 21 (expr -> expr / expr .)
+    -               reduce using rule 21 (expr -> expr / expr .)
+    +               reduce using rule 21 (expr -> expr / expr .)
+    $end            reduce using rule 21 (expr -> expr / expr .)
+    RPAREN          reduce using rule 21 (expr -> expr / expr .)
+
+
+state 48
+
+    (22) expr -> expr * expr .
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    /               reduce using rule 22 (expr -> expr * expr .)
+    *               reduce using rule 22 (expr -> expr * expr .)
+    -               reduce using rule 22 (expr -> expr * expr .)
+    +               reduce using rule 22 (expr -> expr * expr .)
+    $end            reduce using rule 22 (expr -> expr * expr .)
+    RPAREN          reduce using rule 22 (expr -> expr * expr .)
+
+
+state 49
+
+    (23) expr -> expr - expr .
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    -               reduce using rule 23 (expr -> expr - expr .)
+    +               reduce using rule 23 (expr -> expr - expr .)
+    $end            reduce using rule 23 (expr -> expr - expr .)
+    RPAREN          reduce using rule 23 (expr -> expr - expr .)
+    /               shift and go to state 33
+    *               shift and go to state 34
+
+
+state 50
+
+    (24) expr -> expr + expr .
+    (21) expr -> expr . / expr
+    (22) expr -> expr . * expr
+    (23) expr -> expr . - expr
+    (24) expr -> expr . + expr
+    -               reduce using rule 24 (expr -> expr + expr .)
+    +               reduce using rule 24 (expr -> expr + expr .)
+    $end            reduce using rule 24 (expr -> expr + expr .)
+    RPAREN          reduce using rule 24 (expr -> expr + expr .)
+    /               shift and go to state 33
+    *               shift and go to state 34
+
+
+state 51
+
+    (19) expr -> LPAREN expr RPAREN .
+    /               reduce using rule 19 (expr -> LPAREN expr RPAREN .)
+    *               reduce using rule 19 (expr -> LPAREN expr RPAREN .)
+    -               reduce using rule 19 (expr -> LPAREN expr RPAREN .)
+    +               reduce using rule 19 (expr -> LPAREN expr RPAREN .)
+    $end            reduce using rule 19 (expr -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 19 (expr -> LPAREN expr RPAREN .)
+
+
+state 52
+
+    (14) statement -> VARIABLE_NAME L_SQUARE_BRACKETS VARIABLE_VALUE . R_SQUARE_BRACKETS
+    R_SQUARE_BRACKETS shift and go to state 58
+
+
+state 53
+
+    (9) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN . VARIABLE_VALUE
+    VARIABLE_VALUE  shift and go to state 59
+
+
+state 54
+
+    (10) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN . VARIABLE_VALUE
+    VARIABLE_VALUE  shift and go to state 60
+
+
+state 55
+
+    (11) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN . VARIABLE_VALUE
+    VARIABLE_VALUE  shift and go to state 61
+
+
+state 56
+
+    (12) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN . VARIABLE_VALUE
+    VARIABLE_VALUE  shift and go to state 62
+
+
+state 57
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH . L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    L_SQUARE_BRACKETS shift and go to state 63
+
+
+state 58
+
+    (14) statement -> VARIABLE_NAME L_SQUARE_BRACKETS VARIABLE_VALUE R_SQUARE_BRACKETS .
+    RPAREN          reduce using rule 14 (statement -> VARIABLE_NAME L_SQUARE_BRACKETS VARIABLE_VALUE R_SQUARE_BRACKETS .)
+
+
+state 59
+
+    (9) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .
+    CONSTANTS_PREFIX reduce using rule 9 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    VARIABLE_PREFIX reduce using rule 9 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    $end            reduce using rule 9 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .)
+
+
+state 60
+
+    (10) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .
+    CONSTANTS_PREFIX reduce using rule 10 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    VARIABLE_PREFIX reduce using rule 10 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    $end            reduce using rule 10 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .)
+
+
+state 61
+
+    (11) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .
+    CONSTANTS_PREFIX reduce using rule 11 (declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    VARIABLE_PREFIX reduce using rule 11 (declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    $end            reduce using rule 11 (declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE .)
+
+
+state 62
+
+    (12) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .
+    CONSTANTS_PREFIX reduce using rule 12 (declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    VARIABLE_PREFIX reduce using rule 12 (declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .)
+    $end            reduce using rule 12 (declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE .)
+
+
+state 63
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS . value_list R_SQUARE_BRACKETS
+    (25) value_list -> . VARIABLE_VALUE
+    (26) value_list -> . VARIABLE_VALUE COMMA value_list
+    VARIABLE_VALUE  shift and go to state 65
+
+    value_list                     shift and go to state 64
+
+state 64
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list . R_SQUARE_BRACKETS
+    R_SQUARE_BRACKETS shift and go to state 66
+
+
+state 65
+
+    (25) value_list -> VARIABLE_VALUE .
+    (26) value_list -> VARIABLE_VALUE . COMMA value_list
+    R_SQUARE_BRACKETS reduce using rule 25 (value_list -> VARIABLE_VALUE .)
+    COMMA           shift and go to state 67
+
+
+state 66
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS .
+    $end            reduce using rule 1 (expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS .)
+
+
+state 67
+
+    (26) value_list -> VARIABLE_VALUE COMMA . value_list
+    (25) value_list -> . VARIABLE_VALUE
+    (26) value_list -> . VARIABLE_VALUE COMMA value_list
+    VARIABLE_VALUE  shift and go to state 65
+
+    value_list                     shift and go to state 68
+
+state 68
+
+    (26) value_list -> VARIABLE_VALUE COMMA value_list .
+    R_SQUARE_BRACKETS reduce using rule 26 (value_list -> VARIABLE_VALUE COMMA value_list .)

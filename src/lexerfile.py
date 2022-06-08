@@ -13,7 +13,11 @@ class MyLexer(Lexer):
         pass
 
     tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, VARIABLE_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN, LPAREN,
-              RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, IF, THEN, ELSE, WHILE, EQ, GT, LT, GE, LE, DO}
+
+              RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, CAST, TO, ARRAY, OF, R_SQUARE_BRACKETS, L_SQUARE_BRACKETS,
+              COMMA, WITH, IF, THEN, ELSE, WHILE, EQ, GT, LT, GE, LE, DO}
+    literals = {'=', '+', '-', '*', '/', '(', ')'}
+
     ignore = ' \t'
 
     # Tokens
@@ -22,8 +26,11 @@ class MyLexer(Lexer):
     ASSIGN = r'='
     LPAREN = r'\('
     RPAREN = r'\)'
+    R_SQUARE_BRACKETS = r'\]'
+    L_SQUARE_BRACKETS = r'\['
     COLON = r':'
     COMMENT = r'\#.*'
+    COMMA = r','
 
     # Special Names
     VARIABLE_NAME['var'] = VARIABLE_PREFIX
@@ -40,6 +47,18 @@ class MyLexer(Lexer):
     VARIABLE_NAME['print'] = PRINT
     VARIABLE_NAME['all_vars'] = VARIABLES
     VARIABLE_NAME['all_names'] = NAMES
+
+    VARIABLE_NAME['cast'] = CAST
+    VARIABLE_NAME['CAST'] = CAST
+    VARIABLE_NAME['TO'] = TO
+    VARIABLE_NAME['to'] = TO
+    VARIABLE_NAME['Array'] = ARRAY
+    VARIABLE_NAME['array'] = ARRAY
+    VARIABLE_NAME['OF'] = OF
+    VARIABLE_NAME['of'] = OF
+    VARIABLE_NAME['with'] = WITH
+    VARIABLE_NAME['WITH'] = WITH
+
     VARIABLE_NAME['if'] = IF
     VARIABLE_NAME['then'] = THEN
     VARIABLE_NAME['else'] = ELSE
@@ -57,7 +76,7 @@ class MyLexer(Lexer):
         Lexer Error Function
         :param t: readed Token
         '''
-        print("Illegal character '%s'" + t.value[0] + "in line " + self.lineno)
+        print("Illegal character \"" + t.value[0] + "\" in line " + str(self.lineno))
         self.index += 1
 
     @_(r'\n+')
@@ -70,3 +89,11 @@ class MyLexer(Lexer):
         :return: line_no
         '''
         return self.lineno
+
+
+    @_(r'\d+')
+    def NUMBER(self, t):
+        t.value = int(t.value)
+        return t
+
+
