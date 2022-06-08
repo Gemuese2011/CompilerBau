@@ -1,0 +1,27 @@
+declaration:        VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE |
+                    VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE |
+                    CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE |
+                    CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
+
+declaration_list:   declaration |
+                    declaration declaration_list
+
+expression:         declaration_list |
+                    COMMENT |
+                    PRINT LPAREN statement RPAREN |
+                    VARIABLE_NAME ASSIGN VARIABLE_VALUE
+
+statement:          NAMES |
+                    VARIABLES |
+                    bool_op |
+                    IF bool_op THEN statement |
+                    IF bool_op THEN statement ELSE statement |
+                    WHILE bool_op DO statement
+
+bool_op:            VARIABLE_NAME EQ VARIABLE_NAME |   #V_NAMES durch entsprechende Identifier ersetzen
+                    VARIABLE_NAME GT VARIABLE_NAME |
+                    VARIABLE_NAME LT VARIABLE_NAME |
+                    VARIABLE_NAME GE VARIABLE_NAME |
+                    VARIABLE_NAME LE VARIABLE_NAME |
+                    LPAREN bool_op RPAREN
+

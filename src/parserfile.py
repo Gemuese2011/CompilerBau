@@ -110,62 +110,57 @@ class MyParser(Parser):
         else:
             raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
 
-
     @_('VARIABLE_NAME EQ VARIABLE_NAME')
-    def BOOL_OP(self, p):
+    def bool_op(self, p):
         if p.VARIABLE_VALUE0 == p.VARIABLE_VALUE1:
             return True
         else:
             return False
 
     @_('VARIABLE_NAME GT VARIABLE_NAME')
-    def BOOL_OP(self, p):
+    def bool_op(self, p):
         if p.VARIABLE_VALUE0 > p.VARIABLE_VALUE1:
             return True
         else:
             return False
 
     @_('VARIABLE_NAME LT VARIABLE_NAME')
-    def BOOL_OP(self, p):
+    def bool_op(self, p):
         if p.VARIABLE_VALUE0 < p.VARIABLE_VALUE1:
             return True
         else:
             return False
 
     @_('VARIABLE_NAME GE VARIABLE_NAME')
-    def BOOL_OP(self, p):
+    def bool_op(self, p):
         if p.VARIABLE_VALUE0 >= p.VARIABLE_VALUE1:
             return True
         else:
             return False
 
     @_('VARIABLE_NAME LE VARIABLE_NAME')
-    def BOOL_OP(self, p):
+    def bool_op(self, p):
         if p.VARIABLE_VALUE0 <= p.VARIABLE_VALUE1:
             return True
         else:
             return False
 
-    @_('BOOL_OP')
-    def STATEMENT(self, p):
+    @_('bool_op')
+    def statement(self, p):
         pass
 
-    @_('STATEMENT')
-    def expression(self, p):
+    @_('IF bool_op THEN statement')
+    def statement(self, p):
         pass
 
-    @_('IF BOOL_OP THEN STATEMENT')
-    def STATEMENT(self, p):
+    @_('IF bool_op THEN statement ELSE statement')
+    def statement(self, p):
         pass
 
-    @_('IF BOOL_OP THEN STATEMENT ELSE STATEMENT')
-    def STATEMENT(self, p):
-        pass
-
-    @_('WHILE BOOL_OP DO STATEMENT')
-    def STATEMENT(self, p):
-        while p.BOOL_OP == True:
-            exec(p.statement)
+    @_('WHILE bool_op DO statement')
+    def statement(self, p):
+        while p.BOOL_OP:
+            pass  # statement ausführen
 
     def error(self, p):
         print("Syntax error in line" + str(p.lineno))
