@@ -58,4 +58,10 @@ print("Ende der Berechnungen")
 #Ende der Prüfung auf Klammer- und Rechenregeln
 
 
+#Beginn Prüfung von syntaktischen Fehlern
 
+print("Erkennung von syntaktischen Fehlern")
+print("Erkennung von Buchstaben in einer Rechnung")
+print(13+5*2-a)
+
+print("Ende Prüfung von syntaktischen Fehlern")
