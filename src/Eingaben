@@ -18,7 +18,7 @@ print(7-2)
 print("Subtraktion über einen 10er mit 14-8=6")
 print(14-8)
 
-print("Subtraktion über 0 mit 2-7=-5"
+print("Subtraktion über 0 mit 2-7=-5")
 print(2-7)
 
 print("Multiplikation mit 8*3=24")
@@ -46,7 +46,7 @@ print(3*7+2)
 print("Berechnung von 3*(7+2)=27")
 print(3+(7+2))
 
-print("Berechnung von 65/(7-2)=13"
+print("Berechnung von 65/(7-2)=13")
 print(65/(7-2))
 
 print("Berechnung von 12/2*6+8*12-20=112")
