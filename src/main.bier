@@ -1,4 +1,5 @@
-VAR test is int = 9
+# VAR test is int = 9
+# var i is int = 1
 # print(all_vars)
 # var test3 is String = 9
 # const test2: int = 005
@@ -24,5 +25,6 @@ VAR test is int = 9
 # test = 3+5
 # print(test)
 # print("test")
-
-print(test equals 9)
+# print(all_vars)
+var test is int = 5
+if test equals 3 then (print(test equals 4))

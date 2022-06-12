@@ -27,8 +27,6 @@ class MyParser(Parser):
     def __init__(self, lexer):
         self.lexer = lexer
 
-
-
     @_('declaration_list')
     def expression(self, p):
         '''
@@ -46,8 +44,8 @@ class MyParser(Parser):
         '''
         pass
 
-    @_('VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE',
-       'VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE')
+    @_('VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value',
+       'VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value')
     def declaration(self, p):
         '''
         EXPRESSION : VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE |
@@ -56,10 +54,10 @@ class MyParser(Parser):
         '''
         if p.VARIABLE_NAME in variables:
             raise NameGivenException("Constant/Variable \"" + p.VARIABLE_NAME + "\" already defined")
-        set_variable(p.VARIABLE_NAME, p.VAR_TYPE, p.VARIABLE_VALUE)
+        set_variable(p.VARIABLE_NAME, p.VAR_TYPE, p.variable_value)
 
-    @_('CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE',
-       'CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE')
+    @_('CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value',
+       'CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value')
     def declaration(self, p):
         '''
         EXPRESSION : CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE |
@@ -120,7 +118,7 @@ class MyParser(Parser):
         '''
         return variables.get(p.VARIABLE_NAME).value
 
-    @_('VARIABLE_NAME L_SQUARE_BRACKETS VARIABLE_VALUE R_SQUARE_BRACKETS')
+    @_('VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS')
     def statement(self, p):
         '''
         statement : VARIABLES
@@ -148,23 +146,27 @@ class MyParser(Parser):
         else:
             raise NotWritableException("Name \"" + p.VARIABLE_NAME + "\" defined as not writable")
 
-    @_('VARIABLE_NAME EQ VARIABLE_NAME')
+    @_('expr EQ expr')
     def bool_op(self, p):
         return p.expr0 == p.expr1
 
-    @_('VARIABLE_NAME GT VARIABLE_NAME')
+    @_('expr NEQ expr')
+    def bool_op(self, p):
+        return p.expr0 != p.expr1
+
+    @_('expr GT expr')
     def bool_op(self, p):
         return p.expr0 > p.expr1
 
-    @_('VARIABLE_NAME LT VARIABLE_NAME')
+    @_('expr LT expr')
     def bool_op(self, p):
         return p.expr0 < p.expr1
 
-    @_('VARIABLE_NAME GE VARIABLE_NAME')
+    @_('expr GE expr')
     def bool_op(self, p):
         return p.expr0 >= p.expr1
 
-    @_('VARIABLE_NAME LE VARIABLE_NAME')
+    @_('expr LE expr')
     def bool_op(self, p):
         return p.expr0 <= p.expr1
 
@@ -174,8 +176,11 @@ class MyParser(Parser):
 
     @_('IF bool_op THEN statement')
     def statement(self, p):
-        if p.bool_OP:
+        if p.bool_op:
             return p.statement
+
+    # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
+
 
     @_('IF bool_op THEN statement ELSE statement')
     def statement(self, p):
@@ -183,13 +188,15 @@ class MyParser(Parser):
             return p.statement1
         else:
             return p.statement2
+    # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
+
 
     @_('WHILE bool_op DO statement')
     def statement(self, p):
         while p.bool_op:
             p.statement
-        return p.statement
-
+            return p.statement
+    #Hier wird nicht iteriert?
 
     @_('CAST VARIABLE_NAME TO VAR_TYPE')
     def expression(self, p):
@@ -230,13 +237,17 @@ class MyParser(Parser):
     def expr(self, p):
         return p.expr
 
-    @_('VARIABLE_VALUE')
+    @_('variable_value')
     def expr(self, p):
-        return p.VARIABLE_VALUE
+        return p.variable_value
+
+    @_('VARIABLE_NAME')
+    def expr(self, p):
+        return variables.get(p.VARIABLE_NAME).value
 
 
-    @_('VARIABLE_VALUE COMMA value_list',
-       'VARIABLE_VALUE')
+    @_('variable_value COMMA value_list',
+       'variable_value')
     def value_list(self, p):
         if len(p) > 1:
             p.value_list.insert(0, p.VARIABLE_VALUE)
@@ -245,8 +256,24 @@ class MyParser(Parser):
             return [p.VARIABLE_VALUE]
 
 
+    @_('INTEGER_VALUE')
+    def variable_value(self,p):
+            return int(p.INTEGER_VALUE)
+
+    @_('FLOAT_VALUE')
+    def variable_value(self,p):
+        return float(p.FlOAT_VALUE)
+    # Floats werden  nicht  gelesen -->  nur =5 oder =5. funktionieren
+    # =5.3 eben nicht.  @Daniel hängt vllt mit set.variable zusammen?
+    # RegEx sollte aber im Lexer stimmen
+
+    @_('STRING_VALUE')
+    def variable_value(self, p):
+        return str(p.STRING_VALUE).replace("\"", "")
+
+
     def error(self, p):
-        print("Syntax error in line" + str(p.lineno))
+        print("Syntax error in line")
         if not p:
             print("End of File!")
             return

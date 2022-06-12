@@ -12,17 +12,16 @@ class MyLexer(Lexer):
     def __init__(self):
         pass
 
-    tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, VARIABLE_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN, LPAREN,
-
-              RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, CAST, TO, ARRAY, OF, R_SQUARE_BRACKETS, L_SQUARE_BRACKETS,
-              COMMA, WITH, IF, THEN, ELSE, WHILE, EQ, GT, LT, GE, LE, DO}
+    tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, STRING_VALUE, INTEGER_VALUE, FLOAT_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN,
+              LPAREN, RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, CAST, TO, ARRAY, OF, R_SQUARE_BRACKETS, L_SQUARE_BRACKETS,
+              COMMA, WITH, IF, THEN, ELSE, WHILE, EQ, NEQ, GT, LT, GE, LE, DO,}
     literals = {'=', '+', '-', '*', '/', '(', ')'}
 
     ignore = ' \t'
 
     # Tokens
+
     VARIABLE_NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
-    VARIABLE_VALUE = r'(\".*\"|[0-9]+)'
     ASSIGN = r'='
     LPAREN = r'\('
     RPAREN = r'\)'
@@ -31,6 +30,10 @@ class MyLexer(Lexer):
     COLON = r':'
     COMMENT = r'\#.*'
     COMMA = r','
+    STRING_VALUE = r'\".*\"'
+    INTEGER_VALUE = r'[+-]?[0-9]+'
+    FLOAT_VALUE = r'[-+]?[0-9]*\.?[0-9]+'
+
 
     # Special Names
     VARIABLE_NAME['var'] = VARIABLE_PREFIX
@@ -64,10 +67,11 @@ class MyLexer(Lexer):
     VARIABLE_NAME['else'] = ELSE
     VARIABLE_NAME['while'] = WHILE
     VARIABLE_NAME['equals'] = EQ
-    VARIABLE_NAME['greater than'] = GT
-    VARIABLE_NAME['less than'] = LT
-    VARIABLE_NAME['greater equal'] = GE
-    VARIABLE_NAME['less equal'] = LE
+    VARIABLE_NAME['not_equal'] = NEQ
+    VARIABLE_NAME['greater_than'] = GT
+    VARIABLE_NAME['less_than'] = LT
+    VARIABLE_NAME['greater_equal'] = GE
+    VARIABLE_NAME['less_equal'] = LE
     VARIABLE_NAME['do'] = DO
 
 
@@ -91,9 +95,9 @@ class MyLexer(Lexer):
         return self.lineno
 
 
-    @_(r'\d+')
-    def NUMBER(self, t):
-        t.value = int(t.value)
-        return t
+    #@_(r'\d+')
+    #def NUMBER(self, t):
+    #    t.value = int(t.value)
+    #    return t
 
 
