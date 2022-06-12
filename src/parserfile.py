@@ -246,10 +246,8 @@ class MyParser(Parser):
 
 
     def error(self, p):
-        print("Syntax error in line" + str(p.lineno))
+        print("Syntax error")
         if not p:
             print("End of File!")
             return
 
-    def error_message(self, line, message):
-        print("Error in line " + str(self.lexer.get_line_no()) + ": " + message)
