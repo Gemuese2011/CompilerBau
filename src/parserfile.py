@@ -110,14 +110,6 @@ class MyParser(Parser):
         '''
         return variables.items()
 
-    @_('VARIABLE_NAME')
-    def statement(self, p):
-        '''
-        statement : VARIABLES
-        :param p: readed Data
-        '''
-        return variables.get(p.VARIABLE_NAME).value
-
     @_('VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS')
     def statement(self, p):
         '''
