@@ -55,6 +55,9 @@ print(65/(7-2))
 print("Berechnung von 12/2*6+8*12-20=112")
 print(12/2*6+8*12-20)
 
+print("Berechnung von (((3+5)))=8")
+print((((3+5))))
+
 print("Ende der Berechnungen")
 
 

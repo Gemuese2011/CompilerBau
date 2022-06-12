@@ -1,0 +1,1769 @@
+Grammar:
+
+Rule 0     S' -> expression
+Rule 1     expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+Rule 2     expression -> CAST VARIABLE_NAME TO VAR_TYPE
+Rule 3     expression -> WHILE bool_op DO code_fragment
+Rule 4     expression -> IF bool_op THEN code_fragment ELSE code_fragment
+Rule 5     expression -> IF bool_op THEN code_fragment
+Rule 6     expression -> VARIABLE_NAME ASSIGN expr
+Rule 7     expression -> PRINT LPAREN non_while_statement RPAREN
+Rule 8     expression -> COMMENT
+Rule 9     expression -> <empty>
+Rule 10    expression -> declaration_list
+Rule 11    declaration_list -> declaration declaration_list
+Rule 12    declaration_list -> declaration
+Rule 13    declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+Rule 14    declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+Rule 15    declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+Rule 16    declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+Rule 17    statement -> VARIABLE_NAME ASSIGN expr
+Rule 18    statement -> PRINT LPAREN statement RPAREN
+Rule 19    statement -> bool_op
+Rule 20    statement -> expr
+Rule 21    statement -> VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+Rule 22    statement -> VARIABLES
+Rule 23    statement -> NAMES
+Rule 24    bool_op -> expr LE expr
+Rule 25    bool_op -> expr GE expr
+Rule 26    bool_op -> expr LT expr
+Rule 27    bool_op -> expr GT expr
+Rule 28    bool_op -> expr NEQ expr
+Rule 29    bool_op -> expr EQ expr
+Rule 30    expr -> VARIABLE_NAME
+Rule 31    expr -> variable_value
+Rule 32    expr -> LPAREN expr RPAREN
+Rule 33    expr -> - expr  [precedence=right, level=3]
+Rule 34    expr -> expr / expr  [precedence=left, level=2]
+Rule 35    expr -> expr * expr  [precedence=left, level=2]
+Rule 36    expr -> expr - expr  [precedence=left, level=1]
+Rule 37    expr -> expr + expr  [precedence=left, level=1]
+Rule 38    value_list -> variable_value
+Rule 39    value_list -> variable_value COMMA value_list
+Rule 40    variable_value -> STRING_VALUE
+Rule 41    variable_value -> INTEGER_VALUE
+Rule 42    variable_value -> FLOAT_VALUE
+Rule 43    code_fragment -> code_fragment SEMICOLON statement
+Rule 44    code_fragment -> statement
+Rule 45    non_while_statement -> statement
+
+Terminals, with rules where they appear:
+
+*                    : 35
++                    : 37
+-                    : 33 36
+/                    : 34
+ARRAY                : 1
+ASSIGN               : 6 13 14 15 16 17
+CAST                 : 2
+COLON                : 13 15
+COMMA                : 39
+COMMENT              : 8
+CONSTANTS_PREFIX     : 13 14
+DO                   : 3
+ELSE                 : 4
+EQ                   : 29
+FLOAT_VALUE          : 42
+GE                   : 25
+GT                   : 27
+IF                   : 4 5
+INTEGER_VALUE        : 41
+IS                   : 1 14 16
+LE                   : 24
+LPAREN               : 7 18 32
+LT                   : 26
+L_SQUARE_BRACKETS    : 1 21
+NAMES                : 23
+NEQ                  : 28
+OF                   : 1
+PRINT                : 7 18
+RPAREN               : 7 18 32
+R_SQUARE_BRACKETS    : 1 21
+SEMICOLON            : 43
+STRING_VALUE         : 40
+THEN                 : 4 5
+TO                   : 2
+VARIABLES            : 22
+VARIABLE_NAME        : 1 2 6 13 14 15 16 17 21 30
+VARIABLE_PREFIX      : 15 16
+VAR_TYPE             : 1 2 13 14 15 16
+WHILE                : 3
+WITH                 : 1
+error                : 
+
+Nonterminals, with rules where they appear:
+
+bool_op              : 3 4 5 19
+code_fragment        : 3 4 4 5 43
+declaration          : 11 12
+declaration_list     : 10 11
+expr                 : 6 17 20 24 24 25 25 26 26 27 27 28 28 29 29 32 33 34 34 35 35 36 36 37 37
+expression           : 0
+non_while_statement  : 7
+statement            : 18 43 44 45
+value_list           : 1 39
+variable_value       : 13 14 15 16 21 31 38 39
+
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    (2) expression -> . CAST VARIABLE_NAME TO VAR_TYPE
+    (3) expression -> . WHILE bool_op DO code_fragment
+    (4) expression -> . IF bool_op THEN code_fragment ELSE code_fragment
+    (5) expression -> . IF bool_op THEN code_fragment
+    (6) expression -> . VARIABLE_NAME ASSIGN expr
+    (7) expression -> . PRINT LPAREN non_while_statement RPAREN
+    (8) expression -> . COMMENT
+    (9) expression -> .
+    (10) expression -> . declaration_list
+    (11) declaration_list -> . declaration declaration_list
+    (12) declaration_list -> . declaration
+    (13) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+    (14) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+    (15) declaration -> . VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+    (16) declaration -> . VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+    VARIABLE_NAME   shift and go to state 2
+    CAST            shift and go to state 3
+    WHILE           shift and go to state 4
+    IF              shift and go to state 5
+    PRINT           shift and go to state 6
+    COMMENT         shift and go to state 7
+    $end            reduce using rule 9 (expression -> .)
+    CONSTANTS_PREFIX shift and go to state 10
+    VARIABLE_PREFIX shift and go to state 11
+
+    expression                     shift and go to state 1
+    declaration_list               shift and go to state 8
+    declaration                    shift and go to state 9
+
+state 1
+
+    (0) S' -> expression .
+
+
+state 2
+
+    (1) expression -> VARIABLE_NAME . IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    (6) expression -> VARIABLE_NAME . ASSIGN expr
+    IS              shift and go to state 12
+    ASSIGN          shift and go to state 13
+
+
+state 3
+
+    (2) expression -> CAST . VARIABLE_NAME TO VAR_TYPE
+    VARIABLE_NAME   shift and go to state 14
+
+
+state 4
+
+    (3) expression -> WHILE . bool_op DO code_fragment
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    bool_op                        shift and go to state 15
+    expr                           shift and go to state 16
+    variable_value                 shift and go to state 18
+
+state 5
+
+    (4) expression -> IF . bool_op THEN code_fragment ELSE code_fragment
+    (5) expression -> IF . bool_op THEN code_fragment
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    bool_op                        shift and go to state 24
+    expr                           shift and go to state 16
+    variable_value                 shift and go to state 18
+
+state 6
+
+    (7) expression -> PRINT . LPAREN non_while_statement RPAREN
+    LPAREN          shift and go to state 25
+
+
+state 7
+
+    (8) expression -> COMMENT .
+    $end            reduce using rule 8 (expression -> COMMENT .)
+
+
+state 8
+
+    (10) expression -> declaration_list .
+    $end            reduce using rule 10 (expression -> declaration_list .)
+
+
+state 9
+
+    (11) declaration_list -> declaration . declaration_list
+    (12) declaration_list -> declaration .
+    (11) declaration_list -> . declaration declaration_list
+    (12) declaration_list -> . declaration
+    (13) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+    (14) declaration -> . CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+    (15) declaration -> . VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+    (16) declaration -> . VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+    $end            reduce using rule 12 (declaration_list -> declaration .)
+    CONSTANTS_PREFIX shift and go to state 10
+    VARIABLE_PREFIX shift and go to state 11
+
+    declaration                    shift and go to state 9
+    declaration_list               shift and go to state 26
+
+state 10
+
+    (13) declaration -> CONSTANTS_PREFIX . VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+    (14) declaration -> CONSTANTS_PREFIX . VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+    VARIABLE_NAME   shift and go to state 27
+
+
+state 11
+
+    (15) declaration -> VARIABLE_PREFIX . VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value
+    (16) declaration -> VARIABLE_PREFIX . VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value
+    VARIABLE_NAME   shift and go to state 28
+
+
+state 12
+
+    (1) expression -> VARIABLE_NAME IS . ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    ARRAY           shift and go to state 29
+
+
+state 13
+
+    (6) expression -> VARIABLE_NAME ASSIGN . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 30
+    variable_value                 shift and go to state 18
+
+state 14
+
+    (2) expression -> CAST VARIABLE_NAME . TO VAR_TYPE
+    TO              shift and go to state 31
+
+
+state 15
+
+    (3) expression -> WHILE bool_op . DO code_fragment
+    DO              shift and go to state 32
+
+
+state 16
+
+    (24) bool_op -> expr . LE expr
+    (25) bool_op -> expr . GE expr
+    (26) bool_op -> expr . LT expr
+    (27) bool_op -> expr . GT expr
+    (28) bool_op -> expr . NEQ expr
+    (29) bool_op -> expr . EQ expr
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    LE              shift and go to state 33
+    GE              shift and go to state 34
+    LT              shift and go to state 35
+    GT              shift and go to state 36
+    NEQ             shift and go to state 37
+    EQ              shift and go to state 38
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 17
+
+    (30) expr -> VARIABLE_NAME .
+    LE              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    GE              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    LT              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    GT              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    NEQ             reduce using rule 30 (expr -> VARIABLE_NAME .)
+    EQ              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    /               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    *               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    -               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    +               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    $end            reduce using rule 30 (expr -> VARIABLE_NAME .)
+    RPAREN          reduce using rule 30 (expr -> VARIABLE_NAME .)
+    SEMICOLON       reduce using rule 30 (expr -> VARIABLE_NAME .)
+    DO              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    THEN            reduce using rule 30 (expr -> VARIABLE_NAME .)
+    ELSE            reduce using rule 30 (expr -> VARIABLE_NAME .)
+
+
+state 18
+
+    (31) expr -> variable_value .
+    LE              reduce using rule 31 (expr -> variable_value .)
+    GE              reduce using rule 31 (expr -> variable_value .)
+    LT              reduce using rule 31 (expr -> variable_value .)
+    GT              reduce using rule 31 (expr -> variable_value .)
+    NEQ             reduce using rule 31 (expr -> variable_value .)
+    EQ              reduce using rule 31 (expr -> variable_value .)
+    /               reduce using rule 31 (expr -> variable_value .)
+    *               reduce using rule 31 (expr -> variable_value .)
+    -               reduce using rule 31 (expr -> variable_value .)
+    +               reduce using rule 31 (expr -> variable_value .)
+    $end            reduce using rule 31 (expr -> variable_value .)
+    RPAREN          reduce using rule 31 (expr -> variable_value .)
+    SEMICOLON       reduce using rule 31 (expr -> variable_value .)
+    DO              reduce using rule 31 (expr -> variable_value .)
+    THEN            reduce using rule 31 (expr -> variable_value .)
+    ELSE            reduce using rule 31 (expr -> variable_value .)
+
+
+state 19
+
+    (32) expr -> LPAREN . expr RPAREN
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 43
+    variable_value                 shift and go to state 18
+
+state 20
+
+    (33) expr -> - . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 44
+    variable_value                 shift and go to state 18
+
+state 21
+
+    (40) variable_value -> STRING_VALUE .
+    LE              reduce using rule 40 (variable_value -> STRING_VALUE .)
+    GE              reduce using rule 40 (variable_value -> STRING_VALUE .)
+    LT              reduce using rule 40 (variable_value -> STRING_VALUE .)
+    GT              reduce using rule 40 (variable_value -> STRING_VALUE .)
+    NEQ             reduce using rule 40 (variable_value -> STRING_VALUE .)
+    EQ              reduce using rule 40 (variable_value -> STRING_VALUE .)
+    /               reduce using rule 40 (variable_value -> STRING_VALUE .)
+    *               reduce using rule 40 (variable_value -> STRING_VALUE .)
+    -               reduce using rule 40 (variable_value -> STRING_VALUE .)
+    +               reduce using rule 40 (variable_value -> STRING_VALUE .)
+    $end            reduce using rule 40 (variable_value -> STRING_VALUE .)
+    RPAREN          reduce using rule 40 (variable_value -> STRING_VALUE .)
+    SEMICOLON       reduce using rule 40 (variable_value -> STRING_VALUE .)
+    DO              reduce using rule 40 (variable_value -> STRING_VALUE .)
+    THEN            reduce using rule 40 (variable_value -> STRING_VALUE .)
+    ELSE            reduce using rule 40 (variable_value -> STRING_VALUE .)
+    R_SQUARE_BRACKETS reduce using rule 40 (variable_value -> STRING_VALUE .)
+    CONSTANTS_PREFIX reduce using rule 40 (variable_value -> STRING_VALUE .)
+    VARIABLE_PREFIX reduce using rule 40 (variable_value -> STRING_VALUE .)
+    COMMA           reduce using rule 40 (variable_value -> STRING_VALUE .)
+
+
+state 22
+
+    (41) variable_value -> INTEGER_VALUE .
+    LE              reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    GE              reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    LT              reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    GT              reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    NEQ             reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    EQ              reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    /               reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    *               reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    -               reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    +               reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    $end            reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    RPAREN          reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    SEMICOLON       reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    DO              reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    THEN            reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    ELSE            reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    R_SQUARE_BRACKETS reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    CONSTANTS_PREFIX reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    VARIABLE_PREFIX reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+    COMMA           reduce using rule 41 (variable_value -> INTEGER_VALUE .)
+
+
+state 23
+
+    (42) variable_value -> FLOAT_VALUE .
+    LE              reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    GE              reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    LT              reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    GT              reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    NEQ             reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    EQ              reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    /               reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    *               reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    -               reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    +               reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    $end            reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    RPAREN          reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    SEMICOLON       reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    DO              reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    THEN            reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    ELSE            reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    R_SQUARE_BRACKETS reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    CONSTANTS_PREFIX reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    VARIABLE_PREFIX reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+    COMMA           reduce using rule 42 (variable_value -> FLOAT_VALUE .)
+
+
+state 24
+
+    (4) expression -> IF bool_op . THEN code_fragment ELSE code_fragment
+    (5) expression -> IF bool_op . THEN code_fragment
+    THEN            shift and go to state 45
+
+
+state 25
+
+    (7) expression -> PRINT LPAREN . non_while_statement RPAREN
+    (45) non_while_statement -> . statement
+    (17) statement -> . VARIABLE_NAME ASSIGN expr
+    (18) statement -> . PRINT LPAREN statement RPAREN
+    (19) statement -> . bool_op
+    (20) statement -> . expr
+    (21) statement -> . VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+    (22) statement -> . VARIABLES
+    (23) statement -> . NAMES
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 49
+    PRINT           shift and go to state 46
+    VARIABLES       shift and go to state 52
+    NAMES           shift and go to state 53
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    non_while_statement            shift and go to state 47
+    statement                      shift and go to state 48
+    expr                           shift and go to state 50
+    bool_op                        shift and go to state 51
+    variable_value                 shift and go to state 18
+
+state 26
+
+    (11) declaration_list -> declaration declaration_list .
+    $end            reduce using rule 11 (declaration_list -> declaration declaration_list .)
+
+
+state 27
+
+    (13) declaration -> CONSTANTS_PREFIX VARIABLE_NAME . COLON VAR_TYPE ASSIGN variable_value
+    (14) declaration -> CONSTANTS_PREFIX VARIABLE_NAME . IS VAR_TYPE ASSIGN variable_value
+    COLON           shift and go to state 54
+    IS              shift and go to state 55
+
+
+state 28
+
+    (15) declaration -> VARIABLE_PREFIX VARIABLE_NAME . COLON VAR_TYPE ASSIGN variable_value
+    (16) declaration -> VARIABLE_PREFIX VARIABLE_NAME . IS VAR_TYPE ASSIGN variable_value
+    COLON           shift and go to state 56
+    IS              shift and go to state 57
+
+
+state 29
+
+    (1) expression -> VARIABLE_NAME IS ARRAY . OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    OF              shift and go to state 58
+
+
+state 30
+
+    (6) expression -> VARIABLE_NAME ASSIGN expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    $end            reduce using rule 6 (expression -> VARIABLE_NAME ASSIGN expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 31
+
+    (2) expression -> CAST VARIABLE_NAME TO . VAR_TYPE
+    VAR_TYPE        shift and go to state 59
+
+
+state 32
+
+    (3) expression -> WHILE bool_op DO . code_fragment
+    (43) code_fragment -> . code_fragment SEMICOLON statement
+    (44) code_fragment -> . statement
+    (17) statement -> . VARIABLE_NAME ASSIGN expr
+    (18) statement -> . PRINT LPAREN statement RPAREN
+    (19) statement -> . bool_op
+    (20) statement -> . expr
+    (21) statement -> . VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+    (22) statement -> . VARIABLES
+    (23) statement -> . NAMES
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 49
+    PRINT           shift and go to state 46
+    VARIABLES       shift and go to state 52
+    NAMES           shift and go to state 53
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    bool_op                        shift and go to state 51
+    code_fragment                  shift and go to state 60
+    statement                      shift and go to state 61
+    expr                           shift and go to state 50
+    variable_value                 shift and go to state 18
+
+state 33
+
+    (24) bool_op -> expr LE . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 62
+    variable_value                 shift and go to state 18
+
+state 34
+
+    (25) bool_op -> expr GE . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 63
+    variable_value                 shift and go to state 18
+
+state 35
+
+    (26) bool_op -> expr LT . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 64
+    variable_value                 shift and go to state 18
+
+state 36
+
+    (27) bool_op -> expr GT . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 65
+    variable_value                 shift and go to state 18
+
+state 37
+
+    (28) bool_op -> expr NEQ . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 66
+    variable_value                 shift and go to state 18
+
+state 38
+
+    (29) bool_op -> expr EQ . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 67
+    variable_value                 shift and go to state 18
+
+state 39
+
+    (34) expr -> expr / . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 68
+    variable_value                 shift and go to state 18
+
+state 40
+
+    (35) expr -> expr * . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 69
+    variable_value                 shift and go to state 18
+
+state 41
+
+    (36) expr -> expr - . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 70
+    variable_value                 shift and go to state 18
+
+state 42
+
+    (37) expr -> expr + . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 71
+    variable_value                 shift and go to state 18
+
+state 43
+
+    (32) expr -> LPAREN expr . RPAREN
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    RPAREN          shift and go to state 72
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 44
+
+    (33) expr -> - expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    LE              reduce using rule 33 (expr -> - expr .)
+    GE              reduce using rule 33 (expr -> - expr .)
+    LT              reduce using rule 33 (expr -> - expr .)
+    GT              reduce using rule 33 (expr -> - expr .)
+    NEQ             reduce using rule 33 (expr -> - expr .)
+    EQ              reduce using rule 33 (expr -> - expr .)
+    /               reduce using rule 33 (expr -> - expr .)
+    *               reduce using rule 33 (expr -> - expr .)
+    -               reduce using rule 33 (expr -> - expr .)
+    +               reduce using rule 33 (expr -> - expr .)
+    $end            reduce using rule 33 (expr -> - expr .)
+    RPAREN          reduce using rule 33 (expr -> - expr .)
+    SEMICOLON       reduce using rule 33 (expr -> - expr .)
+    DO              reduce using rule 33 (expr -> - expr .)
+    THEN            reduce using rule 33 (expr -> - expr .)
+    ELSE            reduce using rule 33 (expr -> - expr .)
+
+
+state 45
+
+    (4) expression -> IF bool_op THEN . code_fragment ELSE code_fragment
+    (5) expression -> IF bool_op THEN . code_fragment
+    (43) code_fragment -> . code_fragment SEMICOLON statement
+    (44) code_fragment -> . statement
+    (17) statement -> . VARIABLE_NAME ASSIGN expr
+    (18) statement -> . PRINT LPAREN statement RPAREN
+    (19) statement -> . bool_op
+    (20) statement -> . expr
+    (21) statement -> . VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+    (22) statement -> . VARIABLES
+    (23) statement -> . NAMES
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 49
+    PRINT           shift and go to state 46
+    VARIABLES       shift and go to state 52
+    NAMES           shift and go to state 53
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    bool_op                        shift and go to state 51
+    code_fragment                  shift and go to state 73
+    statement                      shift and go to state 61
+    expr                           shift and go to state 50
+    variable_value                 shift and go to state 18
+
+state 46
+
+    (18) statement -> PRINT . LPAREN statement RPAREN
+    LPAREN          shift and go to state 74
+
+
+state 47
+
+    (7) expression -> PRINT LPAREN non_while_statement . RPAREN
+    RPAREN          shift and go to state 75
+
+
+state 48
+
+    (45) non_while_statement -> statement .
+    RPAREN          reduce using rule 45 (non_while_statement -> statement .)
+
+
+state 49
+
+    (17) statement -> VARIABLE_NAME . ASSIGN expr
+    (21) statement -> VARIABLE_NAME . L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+    (30) expr -> VARIABLE_NAME .
+    ASSIGN          shift and go to state 76
+    L_SQUARE_BRACKETS shift and go to state 77
+    LE              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    GE              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    LT              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    GT              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    NEQ             reduce using rule 30 (expr -> VARIABLE_NAME .)
+    EQ              reduce using rule 30 (expr -> VARIABLE_NAME .)
+    /               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    *               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    -               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    +               reduce using rule 30 (expr -> VARIABLE_NAME .)
+    RPAREN          reduce using rule 30 (expr -> VARIABLE_NAME .)
+    SEMICOLON       reduce using rule 30 (expr -> VARIABLE_NAME .)
+    $end            reduce using rule 30 (expr -> VARIABLE_NAME .)
+    ELSE            reduce using rule 30 (expr -> VARIABLE_NAME .)
+
+
+state 50
+
+    (20) statement -> expr .
+    (24) bool_op -> expr . LE expr
+    (25) bool_op -> expr . GE expr
+    (26) bool_op -> expr . LT expr
+    (27) bool_op -> expr . GT expr
+    (28) bool_op -> expr . NEQ expr
+    (29) bool_op -> expr . EQ expr
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    RPAREN          reduce using rule 20 (statement -> expr .)
+    SEMICOLON       reduce using rule 20 (statement -> expr .)
+    $end            reduce using rule 20 (statement -> expr .)
+    ELSE            reduce using rule 20 (statement -> expr .)
+    LE              shift and go to state 33
+    GE              shift and go to state 34
+    LT              shift and go to state 35
+    GT              shift and go to state 36
+    NEQ             shift and go to state 37
+    EQ              shift and go to state 38
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 51
+
+    (19) statement -> bool_op .
+    RPAREN          reduce using rule 19 (statement -> bool_op .)
+    SEMICOLON       reduce using rule 19 (statement -> bool_op .)
+    $end            reduce using rule 19 (statement -> bool_op .)
+    ELSE            reduce using rule 19 (statement -> bool_op .)
+
+
+state 52
+
+    (22) statement -> VARIABLES .
+    RPAREN          reduce using rule 22 (statement -> VARIABLES .)
+    SEMICOLON       reduce using rule 22 (statement -> VARIABLES .)
+    $end            reduce using rule 22 (statement -> VARIABLES .)
+    ELSE            reduce using rule 22 (statement -> VARIABLES .)
+
+
+state 53
+
+    (23) statement -> NAMES .
+    RPAREN          reduce using rule 23 (statement -> NAMES .)
+    SEMICOLON       reduce using rule 23 (statement -> NAMES .)
+    $end            reduce using rule 23 (statement -> NAMES .)
+    ELSE            reduce using rule 23 (statement -> NAMES .)
+
+
+state 54
+
+    (13) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON . VAR_TYPE ASSIGN variable_value
+    VAR_TYPE        shift and go to state 78
+
+
+state 55
+
+    (14) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS . VAR_TYPE ASSIGN variable_value
+    VAR_TYPE        shift and go to state 79
+
+
+state 56
+
+    (15) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON . VAR_TYPE ASSIGN variable_value
+    VAR_TYPE        shift and go to state 80
+
+
+state 57
+
+    (16) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS . VAR_TYPE ASSIGN variable_value
+    VAR_TYPE        shift and go to state 81
+
+
+state 58
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF . VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    VAR_TYPE        shift and go to state 82
+
+
+state 59
+
+    (2) expression -> CAST VARIABLE_NAME TO VAR_TYPE .
+    $end            reduce using rule 2 (expression -> CAST VARIABLE_NAME TO VAR_TYPE .)
+
+
+state 60
+
+    (3) expression -> WHILE bool_op DO code_fragment .
+    (43) code_fragment -> code_fragment . SEMICOLON statement
+    $end            reduce using rule 3 (expression -> WHILE bool_op DO code_fragment .)
+    SEMICOLON       shift and go to state 83
+
+
+state 61
+
+    (44) code_fragment -> statement .
+    SEMICOLON       reduce using rule 44 (code_fragment -> statement .)
+    $end            reduce using rule 44 (code_fragment -> statement .)
+    ELSE            reduce using rule 44 (code_fragment -> statement .)
+
+
+state 62
+
+    (24) bool_op -> expr LE expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    DO              reduce using rule 24 (bool_op -> expr LE expr .)
+    THEN            reduce using rule 24 (bool_op -> expr LE expr .)
+    RPAREN          reduce using rule 24 (bool_op -> expr LE expr .)
+    SEMICOLON       reduce using rule 24 (bool_op -> expr LE expr .)
+    $end            reduce using rule 24 (bool_op -> expr LE expr .)
+    ELSE            reduce using rule 24 (bool_op -> expr LE expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 63
+
+    (25) bool_op -> expr GE expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    DO              reduce using rule 25 (bool_op -> expr GE expr .)
+    THEN            reduce using rule 25 (bool_op -> expr GE expr .)
+    RPAREN          reduce using rule 25 (bool_op -> expr GE expr .)
+    SEMICOLON       reduce using rule 25 (bool_op -> expr GE expr .)
+    $end            reduce using rule 25 (bool_op -> expr GE expr .)
+    ELSE            reduce using rule 25 (bool_op -> expr GE expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 64
+
+    (26) bool_op -> expr LT expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    DO              reduce using rule 26 (bool_op -> expr LT expr .)
+    THEN            reduce using rule 26 (bool_op -> expr LT expr .)
+    RPAREN          reduce using rule 26 (bool_op -> expr LT expr .)
+    SEMICOLON       reduce using rule 26 (bool_op -> expr LT expr .)
+    $end            reduce using rule 26 (bool_op -> expr LT expr .)
+    ELSE            reduce using rule 26 (bool_op -> expr LT expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 65
+
+    (27) bool_op -> expr GT expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    DO              reduce using rule 27 (bool_op -> expr GT expr .)
+    THEN            reduce using rule 27 (bool_op -> expr GT expr .)
+    RPAREN          reduce using rule 27 (bool_op -> expr GT expr .)
+    SEMICOLON       reduce using rule 27 (bool_op -> expr GT expr .)
+    $end            reduce using rule 27 (bool_op -> expr GT expr .)
+    ELSE            reduce using rule 27 (bool_op -> expr GT expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 66
+
+    (28) bool_op -> expr NEQ expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    DO              reduce using rule 28 (bool_op -> expr NEQ expr .)
+    THEN            reduce using rule 28 (bool_op -> expr NEQ expr .)
+    RPAREN          reduce using rule 28 (bool_op -> expr NEQ expr .)
+    SEMICOLON       reduce using rule 28 (bool_op -> expr NEQ expr .)
+    $end            reduce using rule 28 (bool_op -> expr NEQ expr .)
+    ELSE            reduce using rule 28 (bool_op -> expr NEQ expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 67
+
+    (29) bool_op -> expr EQ expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    DO              reduce using rule 29 (bool_op -> expr EQ expr .)
+    THEN            reduce using rule 29 (bool_op -> expr EQ expr .)
+    RPAREN          reduce using rule 29 (bool_op -> expr EQ expr .)
+    SEMICOLON       reduce using rule 29 (bool_op -> expr EQ expr .)
+    $end            reduce using rule 29 (bool_op -> expr EQ expr .)
+    ELSE            reduce using rule 29 (bool_op -> expr EQ expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 68
+
+    (34) expr -> expr / expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    LE              reduce using rule 34 (expr -> expr / expr .)
+    GE              reduce using rule 34 (expr -> expr / expr .)
+    LT              reduce using rule 34 (expr -> expr / expr .)
+    GT              reduce using rule 34 (expr -> expr / expr .)
+    NEQ             reduce using rule 34 (expr -> expr / expr .)
+    EQ              reduce using rule 34 (expr -> expr / expr .)
+    /               reduce using rule 34 (expr -> expr / expr .)
+    *               reduce using rule 34 (expr -> expr / expr .)
+    -               reduce using rule 34 (expr -> expr / expr .)
+    +               reduce using rule 34 (expr -> expr / expr .)
+    $end            reduce using rule 34 (expr -> expr / expr .)
+    RPAREN          reduce using rule 34 (expr -> expr / expr .)
+    SEMICOLON       reduce using rule 34 (expr -> expr / expr .)
+    DO              reduce using rule 34 (expr -> expr / expr .)
+    THEN            reduce using rule 34 (expr -> expr / expr .)
+    ELSE            reduce using rule 34 (expr -> expr / expr .)
+
+
+state 69
+
+    (35) expr -> expr * expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    LE              reduce using rule 35 (expr -> expr * expr .)
+    GE              reduce using rule 35 (expr -> expr * expr .)
+    LT              reduce using rule 35 (expr -> expr * expr .)
+    GT              reduce using rule 35 (expr -> expr * expr .)
+    NEQ             reduce using rule 35 (expr -> expr * expr .)
+    EQ              reduce using rule 35 (expr -> expr * expr .)
+    /               reduce using rule 35 (expr -> expr * expr .)
+    *               reduce using rule 35 (expr -> expr * expr .)
+    -               reduce using rule 35 (expr -> expr * expr .)
+    +               reduce using rule 35 (expr -> expr * expr .)
+    $end            reduce using rule 35 (expr -> expr * expr .)
+    RPAREN          reduce using rule 35 (expr -> expr * expr .)
+    SEMICOLON       reduce using rule 35 (expr -> expr * expr .)
+    DO              reduce using rule 35 (expr -> expr * expr .)
+    THEN            reduce using rule 35 (expr -> expr * expr .)
+    ELSE            reduce using rule 35 (expr -> expr * expr .)
+
+
+state 70
+
+    (36) expr -> expr - expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    LE              reduce using rule 36 (expr -> expr - expr .)
+    GE              reduce using rule 36 (expr -> expr - expr .)
+    LT              reduce using rule 36 (expr -> expr - expr .)
+    GT              reduce using rule 36 (expr -> expr - expr .)
+    NEQ             reduce using rule 36 (expr -> expr - expr .)
+    EQ              reduce using rule 36 (expr -> expr - expr .)
+    -               reduce using rule 36 (expr -> expr - expr .)
+    +               reduce using rule 36 (expr -> expr - expr .)
+    $end            reduce using rule 36 (expr -> expr - expr .)
+    RPAREN          reduce using rule 36 (expr -> expr - expr .)
+    SEMICOLON       reduce using rule 36 (expr -> expr - expr .)
+    DO              reduce using rule 36 (expr -> expr - expr .)
+    THEN            reduce using rule 36 (expr -> expr - expr .)
+    ELSE            reduce using rule 36 (expr -> expr - expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+
+
+state 71
+
+    (37) expr -> expr + expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    LE              reduce using rule 37 (expr -> expr + expr .)
+    GE              reduce using rule 37 (expr -> expr + expr .)
+    LT              reduce using rule 37 (expr -> expr + expr .)
+    GT              reduce using rule 37 (expr -> expr + expr .)
+    NEQ             reduce using rule 37 (expr -> expr + expr .)
+    EQ              reduce using rule 37 (expr -> expr + expr .)
+    -               reduce using rule 37 (expr -> expr + expr .)
+    +               reduce using rule 37 (expr -> expr + expr .)
+    $end            reduce using rule 37 (expr -> expr + expr .)
+    RPAREN          reduce using rule 37 (expr -> expr + expr .)
+    SEMICOLON       reduce using rule 37 (expr -> expr + expr .)
+    DO              reduce using rule 37 (expr -> expr + expr .)
+    THEN            reduce using rule 37 (expr -> expr + expr .)
+    ELSE            reduce using rule 37 (expr -> expr + expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+
+
+state 72
+
+    (32) expr -> LPAREN expr RPAREN .
+    LE              reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    GE              reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    LT              reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    GT              reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    NEQ             reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    EQ              reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    /               reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    *               reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    -               reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    +               reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    $end            reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    SEMICOLON       reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    DO              reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    THEN            reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+    ELSE            reduce using rule 32 (expr -> LPAREN expr RPAREN .)
+
+
+state 73
+
+    (4) expression -> IF bool_op THEN code_fragment . ELSE code_fragment
+    (5) expression -> IF bool_op THEN code_fragment .
+    (43) code_fragment -> code_fragment . SEMICOLON statement
+    ELSE            shift and go to state 84
+    $end            reduce using rule 5 (expression -> IF bool_op THEN code_fragment .)
+    SEMICOLON       shift and go to state 83
+
+
+state 74
+
+    (18) statement -> PRINT LPAREN . statement RPAREN
+    (17) statement -> . VARIABLE_NAME ASSIGN expr
+    (18) statement -> . PRINT LPAREN statement RPAREN
+    (19) statement -> . bool_op
+    (20) statement -> . expr
+    (21) statement -> . VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+    (22) statement -> . VARIABLES
+    (23) statement -> . NAMES
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 49
+    PRINT           shift and go to state 46
+    VARIABLES       shift and go to state 52
+    NAMES           shift and go to state 53
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    statement                      shift and go to state 85
+    expr                           shift and go to state 50
+    bool_op                        shift and go to state 51
+    variable_value                 shift and go to state 18
+
+state 75
+
+    (7) expression -> PRINT LPAREN non_while_statement RPAREN .
+    $end            reduce using rule 7 (expression -> PRINT LPAREN non_while_statement RPAREN .)
+
+
+state 76
+
+    (17) statement -> VARIABLE_NAME ASSIGN . expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 17
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    expr                           shift and go to state 86
+    variable_value                 shift and go to state 18
+
+state 77
+
+    (21) statement -> VARIABLE_NAME L_SQUARE_BRACKETS . variable_value R_SQUARE_BRACKETS
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    variable_value                 shift and go to state 87
+
+state 78
+
+    (13) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE . ASSIGN variable_value
+    ASSIGN          shift and go to state 88
+
+
+state 79
+
+    (14) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE . ASSIGN variable_value
+    ASSIGN          shift and go to state 89
+
+
+state 80
+
+    (15) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE . ASSIGN variable_value
+    ASSIGN          shift and go to state 90
+
+
+state 81
+
+    (16) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE . ASSIGN variable_value
+    ASSIGN          shift and go to state 91
+
+
+state 82
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE . WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    WITH            shift and go to state 92
+
+
+state 83
+
+    (43) code_fragment -> code_fragment SEMICOLON . statement
+    (17) statement -> . VARIABLE_NAME ASSIGN expr
+    (18) statement -> . PRINT LPAREN statement RPAREN
+    (19) statement -> . bool_op
+    (20) statement -> . expr
+    (21) statement -> . VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+    (22) statement -> . VARIABLES
+    (23) statement -> . NAMES
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 49
+    PRINT           shift and go to state 46
+    VARIABLES       shift and go to state 52
+    NAMES           shift and go to state 53
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    statement                      shift and go to state 93
+    expr                           shift and go to state 50
+    bool_op                        shift and go to state 51
+    variable_value                 shift and go to state 18
+
+state 84
+
+    (4) expression -> IF bool_op THEN code_fragment ELSE . code_fragment
+    (43) code_fragment -> . code_fragment SEMICOLON statement
+    (44) code_fragment -> . statement
+    (17) statement -> . VARIABLE_NAME ASSIGN expr
+    (18) statement -> . PRINT LPAREN statement RPAREN
+    (19) statement -> . bool_op
+    (20) statement -> . expr
+    (21) statement -> . VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS
+    (22) statement -> . VARIABLES
+    (23) statement -> . NAMES
+    (24) bool_op -> . expr LE expr
+    (25) bool_op -> . expr GE expr
+    (26) bool_op -> . expr LT expr
+    (27) bool_op -> . expr GT expr
+    (28) bool_op -> . expr NEQ expr
+    (29) bool_op -> . expr EQ expr
+    (30) expr -> . VARIABLE_NAME
+    (31) expr -> . variable_value
+    (32) expr -> . LPAREN expr RPAREN
+    (33) expr -> . - expr
+    (34) expr -> . expr / expr
+    (35) expr -> . expr * expr
+    (36) expr -> . expr - expr
+    (37) expr -> . expr + expr
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    VARIABLE_NAME   shift and go to state 49
+    PRINT           shift and go to state 46
+    VARIABLES       shift and go to state 52
+    NAMES           shift and go to state 53
+    LPAREN          shift and go to state 19
+    -               shift and go to state 20
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    bool_op                        shift and go to state 51
+    code_fragment                  shift and go to state 94
+    statement                      shift and go to state 61
+    expr                           shift and go to state 50
+    variable_value                 shift and go to state 18
+
+state 85
+
+    (18) statement -> PRINT LPAREN statement . RPAREN
+    RPAREN          shift and go to state 95
+
+
+state 86
+
+    (17) statement -> VARIABLE_NAME ASSIGN expr .
+    (34) expr -> expr . / expr
+    (35) expr -> expr . * expr
+    (36) expr -> expr . - expr
+    (37) expr -> expr . + expr
+    RPAREN          reduce using rule 17 (statement -> VARIABLE_NAME ASSIGN expr .)
+    SEMICOLON       reduce using rule 17 (statement -> VARIABLE_NAME ASSIGN expr .)
+    $end            reduce using rule 17 (statement -> VARIABLE_NAME ASSIGN expr .)
+    ELSE            reduce using rule 17 (statement -> VARIABLE_NAME ASSIGN expr .)
+    /               shift and go to state 39
+    *               shift and go to state 40
+    -               shift and go to state 41
+    +               shift and go to state 42
+
+
+state 87
+
+    (21) statement -> VARIABLE_NAME L_SQUARE_BRACKETS variable_value . R_SQUARE_BRACKETS
+    R_SQUARE_BRACKETS shift and go to state 96
+
+
+state 88
+
+    (13) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN . variable_value
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    variable_value                 shift and go to state 97
+
+state 89
+
+    (14) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN . variable_value
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    variable_value                 shift and go to state 98
+
+state 90
+
+    (15) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN . variable_value
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    variable_value                 shift and go to state 99
+
+state 91
+
+    (16) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN . variable_value
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    variable_value                 shift and go to state 100
+
+state 92
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH . L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS
+    L_SQUARE_BRACKETS shift and go to state 101
+
+
+state 93
+
+    (43) code_fragment -> code_fragment SEMICOLON statement .
+    SEMICOLON       reduce using rule 43 (code_fragment -> code_fragment SEMICOLON statement .)
+    $end            reduce using rule 43 (code_fragment -> code_fragment SEMICOLON statement .)
+    ELSE            reduce using rule 43 (code_fragment -> code_fragment SEMICOLON statement .)
+
+
+state 94
+
+    (4) expression -> IF bool_op THEN code_fragment ELSE code_fragment .
+    (43) code_fragment -> code_fragment . SEMICOLON statement
+    $end            reduce using rule 4 (expression -> IF bool_op THEN code_fragment ELSE code_fragment .)
+    SEMICOLON       shift and go to state 83
+
+
+state 95
+
+    (18) statement -> PRINT LPAREN statement RPAREN .
+    RPAREN          reduce using rule 18 (statement -> PRINT LPAREN statement RPAREN .)
+    SEMICOLON       reduce using rule 18 (statement -> PRINT LPAREN statement RPAREN .)
+    $end            reduce using rule 18 (statement -> PRINT LPAREN statement RPAREN .)
+    ELSE            reduce using rule 18 (statement -> PRINT LPAREN statement RPAREN .)
+
+
+state 96
+
+    (21) statement -> VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS .
+    RPAREN          reduce using rule 21 (statement -> VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS .)
+    SEMICOLON       reduce using rule 21 (statement -> VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS .)
+    $end            reduce using rule 21 (statement -> VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS .)
+    ELSE            reduce using rule 21 (statement -> VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS .)
+
+
+state 97
+
+    (13) declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .
+    CONSTANTS_PREFIX reduce using rule 13 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .)
+    VARIABLE_PREFIX reduce using rule 13 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .)
+    $end            reduce using rule 13 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .)
+
+
+state 98
+
+    (14) declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .
+    CONSTANTS_PREFIX reduce using rule 14 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .)
+    VARIABLE_PREFIX reduce using rule 14 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .)
+    $end            reduce using rule 14 (declaration -> CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .)
+
+
+state 99
+
+    (15) declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .
+    CONSTANTS_PREFIX reduce using rule 15 (declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .)
+    VARIABLE_PREFIX reduce using rule 15 (declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .)
+    $end            reduce using rule 15 (declaration -> VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value .)
+
+
+state 100
+
+    (16) declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .
+    CONSTANTS_PREFIX reduce using rule 16 (declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .)
+    VARIABLE_PREFIX reduce using rule 16 (declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .)
+    $end            reduce using rule 16 (declaration -> VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value .)
+
+
+state 101
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS . value_list R_SQUARE_BRACKETS
+    (38) value_list -> . variable_value
+    (39) value_list -> . variable_value COMMA value_list
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    value_list                     shift and go to state 102
+    variable_value                 shift and go to state 103
+
+state 102
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list . R_SQUARE_BRACKETS
+    R_SQUARE_BRACKETS shift and go to state 104
+
+
+state 103
+
+    (38) value_list -> variable_value .
+    (39) value_list -> variable_value . COMMA value_list
+    R_SQUARE_BRACKETS reduce using rule 38 (value_list -> variable_value .)
+    COMMA           shift and go to state 105
+
+
+state 104
+
+    (1) expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS .
+    $end            reduce using rule 1 (expression -> VARIABLE_NAME IS ARRAY OF VAR_TYPE WITH L_SQUARE_BRACKETS value_list R_SQUARE_BRACKETS .)
+
+
+state 105
+
+    (39) value_list -> variable_value COMMA . value_list
+    (38) value_list -> . variable_value
+    (39) value_list -> . variable_value COMMA value_list
+    (40) variable_value -> . STRING_VALUE
+    (41) variable_value -> . INTEGER_VALUE
+    (42) variable_value -> . FLOAT_VALUE
+    STRING_VALUE    shift and go to state 21
+    INTEGER_VALUE   shift and go to state 22
+    FLOAT_VALUE     shift and go to state 23
+
+    variable_value                 shift and go to state 103
+    value_list                     shift and go to state 106
+
+state 106
+
+    (39) value_list -> variable_value COMMA value_list .
+    R_SQUARE_BRACKETS reduce using rule 39 (value_list -> variable_value COMMA value_list .)

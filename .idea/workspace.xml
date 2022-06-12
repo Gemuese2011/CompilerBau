@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="389914d5-bfe8-48c2-81a7-8e2491821553" name="Changes" comment="Created Bug">
+    <list default="true" id="389914d5-bfe8-48c2-81a7-8e2491821553" name="Changes" comment="Fixed all Bugs">
+      <change afterPath="$PROJECT_DIR$/src/TestProgramme/BoolscheOperatoren.bier" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TestProgramme/Iterationen.bier" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TestProgramme/Variablentest.bier" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestProgramme/Eingaben.bier" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestProgramme/Eingaben.bier" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TestProgramme/main.bier" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestProgramme/main.bier" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lexerfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexerfile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parserfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parserfile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
+    </list>
+    <list id="1d202256-4f87-4bd9-81b0-90cc0ce2ccf2" name="Changes by Daaax" comment="">
+      <change beforePath="$PROJECT_DIR$/src/TestProgramme/Eingaben.bier" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestProgramme/Eingaben.bier" afterDir="false" />
+    </list>
+    <list id="c3f0d278-0969-47bf-9fca-42bba3f27d95" name="Changes by KramerK" comment="">
       <change beforePath="$PROJECT_DIR$/src/parserfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parserfile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +45,67 @@
     <setting file="file://$PROJECT_DIR$/src/parserfile.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/utils.py" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/parserfile.py">
+      <ranges>
+        <range start1="3" end1="3" start2="3" end2="5" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="8" end1="10" start2="10" end2="11" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="33" end1="37" start2="34" end2="34" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="45" end1="50" start2="42" end2="42" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="55" end1="60" start2="47" end2="47" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="67" end1="72" start2="54" end2="54" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="75" end1="76" start2="57" end2="58" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="79" end1="83" start2="61" end2="61" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="85" end1="92" start2="63" end2="63" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="93" end1="94" start2="64" end2="65" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="95" end1="99" start2="66" end2="66" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="100" end1="101" start2="67" end2="68" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="102" end1="103" start2="69" end2="70" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="108" end1="109" start2="75" end2="76" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="112" end1="117" start2="79" end2="80" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="120" end1="125" start2="83" end2="84" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="128" end1="133" start2="87" end2="88" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="140" end1="145" start2="95" end2="95" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="155" end1="156" start2="105" end2="106" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="159" end1="160" start2="109" end2="110" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="163" end1="164" start2="113" end2="114" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="167" end1="168" start2="117" end2="118" changelist="c3f0d278-0969-47bf-9fca-42bba3f27d95" />
+        <range start1="171" end1="172" start2="121" end2="122" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="175" end1="176" start2="125" end2="126" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="181" end1="183" start2="131" end2="133" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="184" end1="185" start2="134" end2="135" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="186" end1="187" start2="136" end2="136" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="188" end1="190" start2="137" end2="139" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="191" end1="192" start2="140" end2="141" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="193" end1="194" start2="142" end2="143" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="195" end1="196" start2="144" end2="144" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="197" end1="202" start2="145" end2="156" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="203" end1="204" start2="157" end2="157" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="207" end1="211" start2="160" end2="160" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="222" end1="223" start2="171" end2="172" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="226" end1="227" start2="175" end2="176" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="230" end1="231" start2="179" end2="180" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="234" end1="235" start2="183" end2="184" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="238" end1="239" start2="187" end2="188" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="246" end1="251" start2="195" end2="196" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="256" end1="257" start2="201" end2="202" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="258" end1="259" start2="203" end2="204" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="273" end1="273" start2="218" end2="221" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="275" end1="276" start2="223" end2="224" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="277" end1="278" start2="225" end2="241" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="280" end1="281" start2="243" end2="244" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="282" end1="283" start2="245" end2="245" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="284" end1="285" start2="246" end2="247" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="286" end1="286" start2="248" end2="249" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/TestProgramme/Eingaben.bier">
+      <ranges>
+        <range start1="56" end1="56" start2="56" end2="59" changelist="389914d5-bfe8-48c2-81a7-8e2491821553" />
+        <range start1="66" end1="67" start2="69" end2="70" changelist="1d202256-4f87-4bd9-81b0-90cc0ce2ccf2" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -42,17 +115,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last.edited.regexp&quot;: &quot;&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/kramerk/Documents/GitHub/CompilerBau&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last.edited.regexp": "",
+    "last_opened_file_path": "C:/Users/Admin/Desktop/UNI/CompilerBau/src/TestProgramme",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\Desktop\UNI\CompilerBau\src\TestProgramme" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\Desktop\UNI\CompilerBau\src\TestProgramme" />
     </key>
@@ -113,7 +189,7 @@
       <workItem from="1654700207391" duration="652000" />
       <workItem from="1654805208435" duration="136000" />
       <workItem from="1655042978508" duration="1088000" />
-      <workItem from="1655050033877" duration="2283000" />
+      <workItem from="1655050033877" duration="17870000" />
     </task>
     <task id="LOCAL-00001" summary="Kirons Changes">
       <created>1655043248544</created>
@@ -122,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655043248544</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed all Bugs">
+      <created>1655052372955</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1655052372955</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,27 +224,28 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Kirons Changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Kirons Changes" />
+    <MESSAGE value="Fixed all Bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed all Bugs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/lexerfile.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/parserfile.py</url>
-          <line>282</line>
-          <option name="timeStamp" value="83" />
+          <url>file://$PROJECT_DIR$/src/utils.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="137" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="p.statement" language="Python" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CompilerBau$lexerfile.coverage" NAME="lexerfile Coverage Results" MODIFIED="1652202651738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CompilerBau$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1654682057342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CompilerBau$main.coverage" NAME="main Coverage Results" MODIFIED="1655052033596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CompilerBau$main.coverage" NAME="main Coverage Results" MODIFIED="1655068047936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

@@ -12,12 +12,14 @@ class MyLexer(Lexer):
     def __init__(self):
         pass
 
-    tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, STRING_VALUE, INTEGER_VALUE, FLOAT_VALUE, IS, PRINT, VARIABLES, NAMES, ASSIGN,
-              LPAREN, RPAREN, COLON, CONSTANTS_PREFIX, COMMENT, CAST, TO, ARRAY, OF, R_SQUARE_BRACKETS, L_SQUARE_BRACKETS,
-              COMMA, WITH, IF, THEN, ELSE, WHILE, EQ, NEQ, GT, LT, GE, LE, DO, NEWLINE}
+    tokens = {VARIABLE_NAME, VARIABLE_PREFIX, VAR_TYPE, STRING_VALUE, INTEGER_VALUE, FLOAT_VALUE, IS, PRINT, VARIABLES,
+              NAMES, ASSIGN,
+              LPAREN, RPAREN, COLON, SEMICOLON, CONSTANTS_PREFIX, COMMENT, CAST, TO, ARRAY, OF, R_SQUARE_BRACKETS,
+              L_SQUARE_BRACKETS,
+              COMMA, WITH, IF, THEN, ELSE, WHILE, EQ, NEQ, GT, LT, GE, LE, DO}
     literals = {'=', '+', '-', '*', '/', '(', ')'}
 
-    ignore_t = ' \t'
+    ignore = ' \t'
 
     # Tokens
 
@@ -28,13 +30,13 @@ class MyLexer(Lexer):
     R_SQUARE_BRACKETS = r'\]'
     L_SQUARE_BRACKETS = r'\['
     COLON = r':'
+    SEMICOLON = r';'
     COMMENT = r'\#.*'
     COMMA = r','
     STRING_VALUE = r'\".*\"'
     FLOAT_VALUE = r'[0-9]*\.?[0-9]+'
     INTEGER_VALUE = r'[0-9]+'
-    NEWLINE = r'\n+'
-
+    # NEWLINE = r'\n'
 
     # Special Names
     VARIABLE_NAME['var'] = VARIABLE_PREFIX
@@ -75,7 +77,6 @@ class MyLexer(Lexer):
     VARIABLE_NAME['less_equal'] = LE
     VARIABLE_NAME['do'] = DO
 
-
     def error(self, t):
         '''
         Lexer Error Function
@@ -84,9 +85,9 @@ class MyLexer(Lexer):
         print("Illegal character \"" + t.value[0] + "\" in line " + str(self.lineno))
         self.index += 1
 
-    # @_(r'\n+')
-    # def IGNORE_NEWLINE(self, t):
-    #     self.lineno += len(t.value)
+    @_(r'\n+')
+    def IGNORE_NEWLINE(self, t):
+        self.lineno += len(t.value)
 
     def get_line_no(self):
         '''
@@ -94,4 +95,3 @@ class MyLexer(Lexer):
         :return: line_no
         '''
         return self.lineno
-

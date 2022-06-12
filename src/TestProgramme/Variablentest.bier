@@ -1,0 +1,73 @@
+#Beginn des Variablentests
+
+print("Beginn des Variablentests")
+
+print("Test der Deklaration von var p is int = 2")
+var p is int = 2
+print(p)
+
+
+print("Test der Deklaration von VAR k IS int = 3")
+VAR k IS int = 3
+print(k)
+
+
+print("Test von String mit var j: String = 7")
+var j: String = 7
+print(j)
+
+
+print("Test von String mit var s: String = Bier")
+var s: String = "Bier"
+print(s)
+
+
+print("Test von float mit VAR x: float = 23")
+VAR x: float = 23
+print(x)
+
+
+print("Test von bool als true mit VAR t: bool = 1")
+VAR t: bool = 1
+print(t)
+
+
+print("Test von bool als false mit var f is bool = 0")
+var f is bool = 0
+print(f)
+
+print("Ausgabe aller Variablendaten")
+print(all_vars)
+
+
+print("Ausgabe aller Variablennamen")
+print(all_names)
+
+print("Test der Typumwandlung mit cast p to float")
+cast p to float
+print(p)
+
+print("Test der Typumwandlung mit CAST k TO String")
+CAST k TO String
+print(k)
+
+print(all_vars)
+
+print("Testen von Arrays mit a is array of int with [2, 3]")
+test_array is array of int with [2, 3]
+print(all_vars)
+
+print("Ausgabe einzelner Felder des Arrays")
+print(test_array[0])
+print(test_array[1])
+
+print("Ende Variablentest")
+
+print("Testen von Konstanten")
+
+print("Deklaration von const h is int = 9")
+const h is int = 9
+
+print("Zweite Deklaration mit const h: float = 12")
+print("Folge dessen Errormeldung")
+const h: float = 12

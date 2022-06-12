@@ -1,0 +1,45 @@
+
+0#Beginn der Prüfung auf Boolsche Operatoren
+
+
+print ("4.4 gleich 4.5 ?")
+print (4.4 equals 4.5)
+
+print ("4.5 gleich 4.5 ?")
+print (4.5 equals 4.5)
+
+
+print ("5 ungleich 25/5 ?")
+print (5 not_equal 25/5)
+
+print ("150 ungleich 5 ?")
+print (150 not_equal 5)
+
+
+print ("7 groesser als 10 ?")
+print (7 greater_than 10)
+
+print ("5 groesser als 0.11 ?")
+print (5 greater_than 0.11)
+
+
+print ("5 kleiner als 0.1 ?")
+print (5 less_than 0.1)
+
+print ("5 kleiner als 300000 ?")
+print (5 less_than 300000)
+
+
+print ("56.7 groesser gleich 57 ?")
+print (56.7 greater_equal 57)
+
+print ("56 groesser als 5.5 ?")
+print (56.7 greater_equal 5.5)
+
+
+print ("4 kleiner gleich 5 ?")
+print (4 less_equal 5)
+
+print ("10 kleiner gleich 9/4 ?")
+print (10 less_equal 9/4)
+

@@ -1,0 +1,27 @@
+# Beginn des Statements-Tests
+
+print("Test von if Statements mit: if 3 equals 3 then print(3 equals 4)")
+if 3 equals 3 then print(3 equals 4)
+print("Test von if Statements mit: if 3 equals 4 then print(3 equals 4)")
+if 3 equals 4 then print(3 equals 4)
+
+print("Test von if Statements mit Variablen anhand: if x equals 3 then print(x equals 3)")
+var x is int = 5
+if x equals 3 then print(x equals 3)
+
+print("Test von if Statements mit Variablen anhand: if x equals 5 then print(x equals 5)")
+if x equals 5 then print(x equals 5)
+
+print("Test von if Statements mit Variablen anhand: if x equals 5 then x = x+1")
+if x+1 equals 5 then print(x+1 equals 5)
+print(x)
+
+
+print("Test von if-else Statements mit: if 3 equals 3 then print(3 equals 3) else print(3 equals 4)")
+if 3 equals 3 then print(3 equals 3) else print(3 equals 4)
+print("Test von if-else Statements mit: if 3 equals 4 then print(3 equals 3) else print(3 equals 4)")
+if 3 equals 4 then print(3 equals 3) else print(3 equals 4)
+
+print("Test der while Schleife anhand: while test less_than 8 do print(3 equals 3); test = test + 1")
+print("Es sollten 5 Iterationen zu sehen sein.")
+while x less_than 10 do print(3 equals 3); x = x + 1

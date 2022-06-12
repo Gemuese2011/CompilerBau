@@ -1,13 +1,14 @@
 '''
 Yacc File
 '''
+from copy import deepcopy
+
 from sly import Parser
 
 from Exceptions.NameGivenException import NameGivenException
 from Exceptions.NameNotFoundException import NameNotFoundException
 from Exceptions.NotWritableException import NotWritableException
-from classes import variable
-from utils import variables, set_variable, cast_value, set_array
+from utils import variables, set_variable, cast_value, set_array, run_code_fragment, evaluate_bool, EMPTY_VALUE
 from lexerfile import MyLexer
 
 
@@ -31,10 +32,6 @@ class MyParser(Parser):
 
     @_('declaration_list')
     def expression(self, p):
-        '''
-        expression : declaration_list
-        :param p: readed Data
-        '''
         pass
 
     @_('')
@@ -43,21 +40,11 @@ class MyParser(Parser):
 
     @_('declaration', 'declaration declaration_list')
     def declaration_list(self, p):
-        '''
-        declaration_list : declaration |
-        declaration_list : declaration declaration_list
-        :param p: readed Data
-        '''
         pass
 
     @_('VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value',
        'VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value')
     def declaration(self, p):
-        '''
-        EXPRESSION : VARIABLE_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE |
-        EXPRESSION : VARIABLE_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
-        :param p: readed tokens with values
-        '''
         if p.VARIABLE_NAME in variables:
             raise NameGivenException("Constant/Variable \"" + p.VARIABLE_NAME + "\" already defined")
         set_variable(p.VARIABLE_NAME, p.VAR_TYPE, p.variable_value)
@@ -65,72 +52,40 @@ class MyParser(Parser):
     @_('CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN variable_value',
        'CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN variable_value')
     def declaration(self, p):
-        '''
-        EXPRESSION : CONSTANTS_PREFIX VARIABLE_NAME IS VAR_TYPE ASSIGN VARIABLE_VALUE |
-        EXPRESSION : CONSTANTS_PREFIX VARIABLE_NAME COLON VAR_TYPE ASSIGN VARIABLE_VALUE
-        :param p: readed tokens with values
-        '''
         if p.VARIABLE_NAME in variables:
             raise NameGivenException("Constant/Variable \"" + p.VARIABLE_NAME + "\" already defined")
 
-        set_variable(p.VARIABLE_NAME, p.VAR_TYPE, p.VARIABLE_VALUE, False)
+        set_variable(p.VARIABLE_NAME, p.VAR_TYPE, p.variable_value, False)
 
     @_('COMMENT')
     def expression(self, p):
-        '''
-        expression : COMMENT
-        :param p: readed Data
-        '''
         pass
 
-    @_('NEWLINE')
-    def expression(self, p):
-        '''
-        expression : COMMENT
-        :param p: readed Data
-        '''
-        self.line += 1
 
-    @_('PRINT LPAREN statement RPAREN')
+    @_('PRINT LPAREN non_while_statement RPAREN')
     def expression(self, p):
-        '''
-        expression : PRINT LPAREN statement RPAREN
-        :param p: readed Data
-        '''
         try:
-            if type(p.statement) == str:
+            if type(p.non_while_statement) == str:
                 raise TypeError
-            for element in p.statement:
+            for element in p.non_while_statement:
                 if type(element) == tuple:
                     element[1].print_variable(element[0])
                 else:
                     print(element)
         except:
-            print(p.statement)
+            print(p.non_while_statement)
 
     @_('NAMES')
     def statement(self, p):
-        '''
-        statement : NAMES
-        :param p: readed Data
-        '''
-        return variables.keys()
+        return [variables.keys()]
 
     @_('VARIABLES')
     def statement(self, p):
-        '''
-        statement : VARIABLES
-        :param p: readed Data
-        '''
-        return variables.items()
+        return [variables.items()]
 
     @_('VARIABLE_NAME L_SQUARE_BRACKETS variable_value R_SQUARE_BRACKETS')
     def statement(self, p):
-        '''
-        statement : VARIABLES
-        :param p: readed Data
-        '''
-        return variables.get(p.VARIABLE_NAME).values[int(p.VARIABLE_VALUE)]
+        return [variables.get(p.VARIABLE_NAME).values[int(p.variable_value)]]
 
     @_('expr')
     def statement(self, p):
@@ -138,11 +93,6 @@ class MyParser(Parser):
 
     @_('VARIABLE_NAME ASSIGN expr')
     def expression(self, p):
-        '''
-        EXPRESSION : VARIABLE_NAME ASSIGN VARIABLE_VALUE
-        :param p: readed tokens with values
-        '''
-
         if p.VARIABLE_NAME not in variables.keys():
             raise NameNotFoundException("Name " + p.VARIABLE_NAME + " not defined")
 
@@ -153,15 +103,15 @@ class MyParser(Parser):
 
     @_('expr EQ expr')
     def bool_op(self, p):
-        return p.expr0 == p.expr1
+        return [p.expr0[0] == p.expr1[0], ["eq", p.expr0, p.expr1]]
 
     @_('expr NEQ expr')
     def bool_op(self, p):
-        return p.expr0 != p.expr1
+        return [p.expr0[0] != p.expr1[0], ["neq", p.expr0, p.expr1]]
 
     @_('expr GT expr')
     def bool_op(self, p):
-        return p.expr0 > p.expr1
+        return [p.expr0[0] > p.expr1[0], ["gt", p.expr0, p.expr1]]
 
     @_('expr LT expr')
     def bool_op(self, p):
@@ -169,46 +119,45 @@ class MyParser(Parser):
 
     @_('expr GE expr')
     def bool_op(self, p):
-        return p.expr0 >= p.expr1
+        return [p.expr0[0] >= p.expr1[0], ["ge", p.expr0, p.expr1]]
 
     @_('expr LE expr')
     def bool_op(self, p):
-        return p.expr0 <= p.expr1
+        return [p.expr0[0] <= p.expr1[0], ["le", p.expr0, p.expr1]]
 
     @_('bool_op')
     def statement(self, p):
         return p.bool_op
 
-    @_('IF bool_op THEN statement')
-    def statement(self, p):
+    @_('IF bool_op THEN code_fragment')
+    def expression(self, p):
         if p.bool_op:
-            return p.code_fragment
+            run_code_fragment(p.code_fragment)
 
-    # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
 
-    @_('IF bool_op THEN statement ELSE statement')
-    def statement(self, p):
+    @_('IF bool_op THEN code_fragment ELSE code_fragment')
+    def expression(self, p):
         if p.bool_op:
-            return p.code_fragment1
+            run_code_fragment(p.code_fragment0)
         else:
-            return p.code_fragment2
+            run_code_fragment(p.code_fragment1)
 
-    # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
 
-    @_('WHILE bool_op DO statement')
-    def statement(self, p):
-        while p.bool_op:
-            p.statement
-            return p.statement
+    @_('WHILE bool_op DO code_fragment')
+    def expression(self, p):
+        run_loop = p.bool_op[0]
+        while run_loop:
+            code = deepcopy(p.code_fragment)
+            run_code_fragment(code)
+            bool = deepcopy(p.bool_op)
+            if evaluate_bool(bool):
+                continue
+            else:
+                break
 
-    # Hier wird nicht iteriert?
 
     @_('CAST VARIABLE_NAME TO VAR_TYPE')
     def expression(self, p):
-        '''
-        EXPRESSION : CAST VARIABLE_NAME TO VAR_TYPE
-        :param p: readed tokens with values
-        '''
         if p.VARIABLE_NAME not in variables.keys():
             raise NameNotFoundException("Name " + p.VARIABLE_NAME + " not defined")
 
@@ -220,23 +169,23 @@ class MyParser(Parser):
 
     @_('expr "+" expr')
     def expr(self, p):
-        return float(p.expr0) + float(p.expr1)
+        return [float(p.expr0[0]) + float(p.expr1[0]), ["+", p.expr0, p.expr1]]
 
     @_('expr "-" expr')
     def expr(self, p):
-        return float(p.expr0) - float(p.expr1)
+        return [float(p.expr0[0]) - float(p.expr1[0]), ["-", p.expr0, p.expr1]]
 
     @_('expr "*" expr')
     def expr(self, p):
-        return float(p.expr0) * float(p.expr1)
+        return [float(p.expr0[0]) * float(p.expr1[0]), ["*", p.expr0, p.expr1]]
 
     @_('expr "/" expr')
     def expr(self, p):
-        return float(p.expr0) / float(p.expr1)
+        return [float(p.expr0[0]) / float(p.expr1[0]), ["/", p.expr0, p.expr1]]
 
     @_('"-" expr %prec UMINUS')
     def expr(self, p):
-        return float(-p.expr)
+        return [float(-p.expr)]
 
     @_('LPAREN expr RPAREN')
     def expr(self, p):
@@ -244,19 +193,15 @@ class MyParser(Parser):
 
     @_('variable_value')
     def expr(self, p):
-        return p.variable_value
-
-    @_('VARIABLE_NAME')
-    def expr(self, p):
-        return variables.get(p.VARIABLE_NAME).value
+        return [p.variable_value]
 
     @_('variable_value COMMA value_list',
        'variable_value')
     def value_list(self, p):
         if len(p) > 1:
-            p.value_list.insert(0, p.VARIABLE_VALUE)
+            p.value_list.insert(0, p.variable_value)
             return p.value_list
-        return [p.VARIABLE_VALUE]
+        return [p.variable_value]
 
     @_('FLOAT_VALUE')
     def variable_value(self, p):
@@ -271,16 +216,34 @@ class MyParser(Parser):
     def variable_value(self, p):
         return str(p.STRING_VALUE).replace("\"", "")
 
+    @_('VARIABLE_NAME')
+    def expr(self, p):
+        return [variables.get(p.VARIABLE_NAME).value, ["var", p.VARIABLE_NAME, EMPTY_VALUE]]
 
     @_('statement',
-       'code_fragment \n statement')
+       'code_fragment SEMICOLON statement')
     def code_fragment(self, p):
-        return p
+        if len(p) > 1:
+            p.code_fragment.insert(0, p.statement)
+            return p.code_fragment
+        return [p.statement]
+
+    @_('PRINT LPAREN statement RPAREN')
+    def statement(self, p):
+        return ["print", p.statement]
+
+    @_('VARIABLE_NAME ASSIGN expr')
+    def statement(self, p):
+        return ["redefine", [p.VARIABLE_NAME, p.expr]]
+
+    @_('statement')
+    def non_while_statement(self, p):
+        return p.statement[0]
 
     def error(self, p):
-        if p.type == 'NEWLINE':
+        if self.lexer.text == '\n':
             return
-        print("Syntax error at " + p.type)
         if not p:
-            print("End of File!")
+            print("Syntax error at End of File!")
             return
+        print("Syntax error at " + p.value)

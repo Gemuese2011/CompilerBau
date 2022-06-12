@@ -30,6 +30,7 @@ if __name__ == '__main__':
 
     number = int(input("Enter Filenumber: "))
 
+
     print("Initializing Bier Lexer")
     lexer = MyLexer()
     print("Initializing Bier Parser")

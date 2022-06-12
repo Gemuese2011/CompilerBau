@@ -1,5 +1,7 @@
-# VAR test is int = 9
+
 # var i is int = 1
+# const test2: int = 005
+# print(i)
 # print(all_vars)
 # var test3 is String = 9
 # const test2: int = 005
@@ -20,7 +22,7 @@
 # print(10+5)
 # print(10-5)
 # print(10*5)
-print(5 less_equal 6)
+# print(5 less_equal 6)
 # print((10+10*2)/5)
 # test = 3+5
 # print(test)
@@ -28,5 +30,17 @@ print(5 less_equal 6)
 # print(all_vars)
 # var test is int = 5
 # if test equals 3 then (print(test equals 4))
-print(0.4)
-print(0.)
+# print(0.4)
+# print(0.)
+
+# print(3+5)
+
+# if 3 equals 3 then print(3 equals 4)
+# if 3 equals 4 then print(3 equals 4)
+#
+# if 3 equals 3 then print(3 equals 3) else print(3 equals 4)
+# if 3 equals 4 then print(3 equals 3) else print(3 equals 4)
+
+VAR test is int = 3
+# print("test")
+while test less_than 8 do print(3 equals 3); test = test + 1
