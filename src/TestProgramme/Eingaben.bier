@@ -67,7 +67,7 @@ print("Ende der Berechnungen")
 #Beginn Prüfung von syntaktischen Fehlern
 
 print("Erkennung von syntaktischen Fehlern")
-print("Erkennung von Buchstaben in einer Rechnung")
+print("Erkennung von Buchstaben in einer Rechnung mit 13+5*2-a")
 print(13+5*2-a)
 
 print("Ende Prüfung von syntaktischen Fehlern")
