@@ -115,7 +115,7 @@ class MyParser(Parser):
 
     @_('expr LT expr')
     def bool_op(self, p):
-        return p.expr0 < p.expr1
+        return [p.expr0[0] < p.expr1[0], ["lt", p.expr0 , p.expr1] ]
 
     @_('expr GE expr')
     def bool_op(self, p):
