@@ -31,8 +31,8 @@ class MyLexer(Lexer):
     COMMENT = r'\#.*'
     COMMA = r','
     STRING_VALUE = r'\".*\"'
-    INTEGER_VALUE = r'[+-]?[0-9]+'
     FLOAT_VALUE = r'[-+]?[0-9]*\.?[0-9]+'
+    INTEGER_VALUE = r'[+-]?[0-9]+'
 
 
     # Special Names

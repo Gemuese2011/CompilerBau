@@ -126,7 +126,6 @@ class MyParser(Parser):
         '''
         return variables.get(p.VARIABLE_NAME).values[int(p.VARIABLE_VALUE)]
 
-
     @_('expr')
     def statement(self, p):
         return p.expr
@@ -181,22 +180,22 @@ class MyParser(Parser):
 
     # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
 
-
     @_('IF bool_op THEN statement ELSE statement')
     def statement(self, p):
         if p.bool_op:
             return p.statement1
         else:
             return p.statement2
-    # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
 
+    # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
 
     @_('WHILE bool_op DO statement')
     def statement(self, p):
         while p.bool_op:
             p.statement
             return p.statement
-    #Hier wird nicht iteriert?
+
+    # Hier wird nicht iteriert?
 
     @_('CAST VARIABLE_NAME TO VAR_TYPE')
     def expression(self, p):
@@ -245,7 +244,6 @@ class MyParser(Parser):
     def expr(self, p):
         return variables.get(p.VARIABLE_NAME).value
 
-
     @_('variable_value COMMA value_list',
        'variable_value')
     def value_list(self, p):
@@ -255,26 +253,24 @@ class MyParser(Parser):
         else:
             return [p.VARIABLE_VALUE]
 
+    @_('FLOAT_VALUE')
+    def variable_value(self, p):
+        return float(p.FLOAT_VALUE)
 
     @_('INTEGER_VALUE')
-    def variable_value(self,p):
-            return int(p.INTEGER_VALUE)
+    def variable_value(self, p):
+        return int(p.INTEGER_VALUE)
 
-    @_('FLOAT_VALUE')
-    def variable_value(self,p):
-        return float(p.FlOAT_VALUE)
     # Floats werden  nicht  gelesen -->  nur =5 oder =5. funktionieren
-    # =5.3 eben nicht.  @Daniel hängt vllt mit set.variable zusammen?
+    # =5.3 eben nicht. @Daniel hängt vlt mit set.variable zusammen?
     # RegEx sollte aber im Lexer stimmen
 
     @_('STRING_VALUE')
     def variable_value(self, p):
         return str(p.STRING_VALUE).replace("\"", "")
 
-
     def error(self, p):
         print("Syntax error")
         if not p:
             print("End of File!")
             return
-

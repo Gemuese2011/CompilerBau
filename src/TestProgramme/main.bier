@@ -26,5 +26,7 @@
 # print(test)
 # print("test")
 # print(all_vars)
-var test is int = 5
-if test equals 3 then (print(test equals 4))
+# var test is int = 5
+# if test equals 3 then (print(test equals 4))
+print(0.4)
+print(0.)
