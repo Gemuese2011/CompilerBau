@@ -20,7 +20,7 @@
 # print(10+5)
 # print(10-5)
 # print(10*5)
-# print(10/5)
+print(5 less_equal 6)
 # print((10+10*2)/5)
 # test = 3+5
 # print(test)

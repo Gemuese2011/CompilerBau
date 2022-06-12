@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="389914d5-bfe8-48c2-81a7-8e2491821553" name="Changes" comment="Kirons Changes">
-      <change afterPath="$PROJECT_DIR$/src/TestProgramme/FalscherFile" afterDir="false" />
+    <list default="true" id="389914d5-bfe8-48c2-81a7-8e2491821553" name="Changes" comment="Created Bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Eingaben" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestProgramme/Eingaben.bier" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.bier" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestProgramme/main.bier" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TestProgramme/main.bier" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestProgramme/main.bier" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lexerfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexerfile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parserfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parserfile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +15,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Testeingaben" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -85,6 +83,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -114,6 +113,7 @@
       <workItem from="1654700207391" duration="652000" />
       <workItem from="1654805208435" duration="136000" />
       <workItem from="1655042978508" duration="1088000" />
+      <workItem from="1655050033877" duration="2283000" />
     </task>
     <task id="LOCAL-00001" summary="Kirons Changes">
       <created>1655043248544</created>
@@ -147,14 +147,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/parserfile.py</url>
-          <line>236</line>
-          <option name="timeStamp" value="67" />
+          <url>file://$PROJECT_DIR$/src/lexerfile.py</url>
+          <line>88</line>
+          <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/parserfile.py</url>
-          <line>234</line>
-          <option name="timeStamp" value="68" />
+          <line>282</line>
+          <option name="timeStamp" value="83" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -162,6 +162,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CompilerBau$lexerfile.coverage" NAME="lexerfile Coverage Results" MODIFIED="1652202651738" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/CompilerBau$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1654682057342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/CompilerBau$main.coverage" NAME="main Coverage Results" MODIFIED="1655044051662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/CompilerBau$main.coverage" NAME="main Coverage Results" MODIFIED="1655052033596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

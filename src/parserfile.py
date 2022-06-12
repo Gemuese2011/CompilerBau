@@ -18,6 +18,8 @@ class MyParser(Parser):
     tokens = MyLexer.tokens
     debugfile = 'parser.out'
 
+    line = 0
+
     precedence = (
         ('left', '+', '-'),
         ('left', '*', '/'),
@@ -33,6 +35,10 @@ class MyParser(Parser):
         expression : declaration_list
         :param p: readed Data
         '''
+        pass
+
+    @_('')
+    def expression(self, p):
         pass
 
     @_('declaration', 'declaration declaration_list')
@@ -76,6 +82,14 @@ class MyParser(Parser):
         :param p: readed Data
         '''
         pass
+
+    @_('NEWLINE')
+    def expression(self, p):
+        '''
+        expression : COMMENT
+        :param p: readed Data
+        '''
+        self.line += 1
 
     @_('PRINT LPAREN statement RPAREN')
     def expression(self, p):
@@ -258,13 +272,15 @@ class MyParser(Parser):
         return str(p.STRING_VALUE).replace("\"", "")
 
 
-    #@_('statement',
-    #   'code_fragment \n statement')
-    #def code_fragment(self, p):
-    #    return p
+    @_('statement',
+       'code_fragment \n statement')
+    def code_fragment(self, p):
+        return p
 
     def error(self, p):
-        print("Syntax error")
+        if p.type == 'NEWLINE':
+            return
+        print("Syntax error at " + p.type)
         if not p:
             print("End of File!")
             return
