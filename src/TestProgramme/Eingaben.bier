@@ -27,6 +27,9 @@ print(8*3)
 print("Dividieren mit 35/7=5")
 print(35/7)
 
+print("Dividieren mit 35/8=4.375")
+print(35/8)
+
 print("Ende der Grundrechenarten")
 
 

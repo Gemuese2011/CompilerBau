@@ -176,16 +176,16 @@ class MyParser(Parser):
     @_('IF bool_op THEN statement')
     def statement(self, p):
         if p.bool_op:
-            return p.statement
+            return p.code_fragment
 
     # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
 
     @_('IF bool_op THEN statement ELSE statement')
     def statement(self, p):
         if p.bool_op:
-            return p.statement1
+            return p.code_fragment1
         else:
-            return p.statement2
+            return p.code_fragment2
 
     # Statements werden immer ausgeführt unabhängig von Konditionalbedingung
 
@@ -250,8 +250,7 @@ class MyParser(Parser):
         if len(p) > 1:
             p.value_list.insert(0, p.VARIABLE_VALUE)
             return p.value_list
-        else:
-            return [p.VARIABLE_VALUE]
+        return [p.VARIABLE_VALUE]
 
     @_('FLOAT_VALUE')
     def variable_value(self, p):
@@ -261,13 +260,16 @@ class MyParser(Parser):
     def variable_value(self, p):
         return int(p.INTEGER_VALUE)
 
-    # Floats werden  nicht  gelesen -->  nur =5 oder =5. funktionieren
-    # =5.3 eben nicht. @Daniel hängt vlt mit set.variable zusammen?
-    # RegEx sollte aber im Lexer stimmen
 
     @_('STRING_VALUE')
     def variable_value(self, p):
         return str(p.STRING_VALUE).replace("\"", "")
+
+
+    #@_('statement',
+    #   'code_fragment \n statement')
+    #def code_fragment(self, p):
+    #    return p
 
     def error(self, p):
         print("Syntax error")
