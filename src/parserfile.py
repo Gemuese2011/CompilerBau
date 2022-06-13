@@ -218,7 +218,10 @@ class MyParser(Parser):
 
     @_('VARIABLE_NAME')
     def expr(self, p):
-        return [variables.get(p.VARIABLE_NAME).value, ["var", p.VARIABLE_NAME, EMPTY_VALUE]]
+        try:
+            return [variables.get(p.VARIABLE_NAME).value, ["var", p.VARIABLE_NAME, EMPTY_VALUE]]
+        except:
+            raise NameNotFoundException("Variable/Constant with name: " + p.VARIABLE_NAME + " was not found")
 
     @_('statement',
        'code_fragment SEMICOLON statement')
