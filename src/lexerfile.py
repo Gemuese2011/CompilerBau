@@ -49,7 +49,6 @@ class MyLexer(Lexer):
     VARIABLE_NAME['int'] = VAR_TYPE
     VARIABLE_NAME['String'] = VAR_TYPE
     VARIABLE_NAME['float'] = VAR_TYPE
-    VARIABLE_NAME['char'] = VAR_TYPE
     VARIABLE_NAME['print'] = PRINT
     VARIABLE_NAME['all_vars'] = VARIABLES
     VARIABLE_NAME['all_names'] = NAMES

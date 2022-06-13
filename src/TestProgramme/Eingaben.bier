@@ -9,16 +9,16 @@ print("Beginn: Test der Grundrechenoperationen")
 print("Addition von 5+2=7")
 print(5+2)
 
-print("Addition über einen 10er mit 7+5=12")
+print("Addition ueber einen 10er mit 7+5=12")
 print(7+5)
 
 print("Subtraktion mit 7-2=5")
 print(7-2)
 
-print("Subtraktion über einen 10er mit 14-8=6")
+print("Subtraktion ueber einen 10er mit 14-8=6")
 print(14-8)
 
-print("Subtraktion über 0 mit 2-7=-5")
+print("Subtraktion ueber 0 mit 2-7=-5")
 print(2-7)
 
 print("Multiplikation mit 8*3=24")
