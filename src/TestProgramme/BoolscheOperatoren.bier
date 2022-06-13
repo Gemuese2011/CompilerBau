@@ -1,5 +1,7 @@
-
-0#Beginn der Prüfung auf Boolsche Operatoren
+# Präsentation des Syntaxerrors
+print("Syntaxerror Praesentation durch einen falschen Token")
+0
+#Beginn der Prüfung auf Boolsche Operatoren
 
 
 print ("4.4 gleich 4.5 ?")
